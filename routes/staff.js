@@ -1,14 +1,14 @@
 const express = require("express");
 
+const staffController = require("../controllers/staff");
+
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
   res.render("staff/attendance");
 });
 
-router.get("/infomation", (req, res, next) => {
-  res.render("staff/staff-info");
-});
+router.get("/infomation", staffController.getStaffInfo);
 router.get("/covid", (req, res, next) => {
   res.render("staff/covid-info");
 });

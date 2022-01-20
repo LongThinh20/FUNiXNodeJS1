@@ -1,3 +1,5 @@
+const checked = document.getElementById("checkCovid").checked;
+
 const backdrop = document.querySelector(".backdrop");
 const sideDrawer = document.querySelector(".mobile-nav");
 const menuToggle = document.querySelector("#side-menu-toggle");
@@ -12,5 +14,8 @@ function menuToggleClickHandler() {
   sideDrawer.classList.add("open");
 }
 
+function checkCovid() {}
+
 backdrop.addEventListener("click", backdropClickHandler);
 menuToggle.addEventListener("click", menuToggleClickHandler);
+checked.addEventListener("click", checkCovid);
