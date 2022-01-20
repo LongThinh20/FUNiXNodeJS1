@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="container">
+
+                <h1>ĐIỂM DANH </h1>
+                <!-- Nav pills -->
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active " data-toggle="pill" href="#attendance">ĐIỂM DANH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#off-date">NGHỈ PHÉP</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content ">
+                    <div class="tab-pane container active" id="attendance">điểm danh</div>
+                    <div class="tab-pane container fade" id="off-date">nghỉ phép</div>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>
