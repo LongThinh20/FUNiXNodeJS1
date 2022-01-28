@@ -4,14 +4,19 @@ const staffController = require("../controllers/staff");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.render("staff/attendance");
-});
+router.get("/", staffController.getIndex);
+
+router.post("/", staffController.postWorkTime);
 
 router.get("/infomation", staffController.getStaffInfo);
-router.get("/covid", (req, res, next) => {
-  res.render("staff/covid-info");
-});
+
+router.get("/attendance", staffController.getTest);
+
+router.post("/attendance", staffController.postTest);
+
+router.get("/covid", staffController.getCovid);
+
+router.post("/covid", staffController.postCovidInfo);
 
 router.get("/workTime", (req, res, next) => {
   res.render("staff/workTimeAndSalary");

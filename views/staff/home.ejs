@@ -1,0 +1,83 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="container">
+
+                <!-- Nav pills -->
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="btn nav-link active" data-toggle="pill" href="#home">ĐIỂM DANH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn nav-link" data-toggle="pill" href="#offTime">NGHỈ PHÉP</a>
+                    </li>
+
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane container active" id="home">
+                        <form method="post" action="/">
+                            <br>
+                            <input type="text" value="<%= staffInfo.name %> " class="btn btn-outline-primary" disabled>
+                            <p>Chọn nơi làm việc :</p>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="workSpace" value="company"
+                                        checked="checked"><i class="fa fa-building"></i> ( Công ty )
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="workSpace" value="home"><i
+                                        class="fa fa-home"></i> ( Nhà )
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="workSpace" value="customer"><i
+                                        class="fa fa-users"></i> ( Khách hàng )
+                                </label>
+                            </div>
+                            <!-- <a href="/attendance?status=true">BẮT ĐẦU LÀM VIỆC</a> -->
+                            <button class="btn btn-primary" type="submit">BẮT ĐẦU LÀM</button>
+                            <input type="hidden" name="staffId" value="<%= staffInfo._id %> ">
+                        </form>
+                        <br>
+
+                        <p> Số giờ làm : <%= totalDay %>
+                        </p>
+                        <% if(workTimes.length> 0){ %>
+
+                            <% for(let time of workTimes) {%>
+                                <div class="card text-left">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <%= time.workSpace %>
+                                        </p>
+                                        <p class="card-text">
+                                            <%= time.startTime %>
+                                        </p>
+                                        <p class="card-text">
+                                            <%= time.endTime %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <% } %>
+                                    <% } %>
+
+                    </div>
+                    <div class="tab-pane container fade" id="offTime">...</div>
+
+                </div>
+
+
+
+
+
+            </main>
+            <%- include('../includes/end.ejs') %>

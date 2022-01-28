@@ -15,6 +15,10 @@ const staffSchema = new Schema({
     type: Number,
     required: true
   },
+  startDate: {
+    type: String,
+    required: true
+  },
   department: {
     type: String,
     required: true
@@ -26,6 +30,21 @@ const staffSchema = new Schema({
   image: {
     type: String,
     required: true
+  },
+  workTimes: {
+    item: [
+      {
+        workTimeId: {
+          type: Schema.Types.ObjectId,
+          ref: "WorkTime",
+          required: true
+        },
+        totalTime: {
+          type: Number,
+          required: true
+        }
+      }
+    ]
   }
 });
 

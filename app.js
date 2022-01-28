@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  Staff.findById("61e96bc9b588eea483cd14f3")
+  Staff.findById("61ee6ec435c4962629a468ac")
     .then((staff) => {
       req.staff = staff;
       next();
@@ -40,6 +40,7 @@ mongoose
           name: "Nguyên Văn A",
           doB: "20-2-1994",
           salaryScale: 1,
+          startDate: "1-11-2021",
           department: "IT",
           annualLeave: 8,
           image:
@@ -48,7 +49,7 @@ mongoose
         staff.save();
       }
     });
-    app.listen(3000);
+    app.listen(3001);
   })
   .catch((err) => {
     console.log(err);

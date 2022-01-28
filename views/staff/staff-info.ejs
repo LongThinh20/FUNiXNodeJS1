@@ -6,9 +6,48 @@
             <main class="container">
 
                 <h1>THÔNG TIN CÁ NHÂN </h1>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <img src="<%= staffInfo.image %> " alt="">
+                    </div>
+                    <div className="col-sm-12 col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>ID :</p>
+                                <p>Họ và Tên :</p>
+                                <p>Ngày sinh : </p>
+                                <p>Hệ số lương :</p>
+                                <p>Ngày vào công ty :</p>
+                                <p>Phòng ban :</p>
+                                <p>Số ngày nghỉ còn lại: </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <%= staffInfo._id %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.name %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.doB %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.salaryScale %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.startDate %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.department %>
+                                </p>
+                                <p>
+                                    <%= staffInfo.annualLeave %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-                <p>Tên : <%= staffInfo.name %>
-                </p>
+                </div>
 
             </main>
             <%- include('../includes/end.ejs') %>
