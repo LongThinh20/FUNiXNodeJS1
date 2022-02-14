@@ -18,6 +18,8 @@ router.get("/covid", staffController.getCovid);
 
 router.post("/covid", staffController.postCovidInfo);
 
+router.post("/time-off", staffController.postTimeOff);
+
 router.get("/workTime", (req, res, next) => {
   res.render("staff/workTimeAndSalary");
 });

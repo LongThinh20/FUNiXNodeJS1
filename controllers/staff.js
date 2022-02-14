@@ -1,4 +1,5 @@
 const WorkTime = require("../models/workTime");
+const OffTime = require("../models/offTime");
 const Staff = require("../models/staff");
 const moment = require("moment");
 
@@ -15,13 +16,13 @@ exports.getIndex = (req, res, next) => {
 
       result.map((t) => {
         let end = moment(t.endTime);
-
         let now = moment(t.startTime);
-
-        if (end !== null) {
+        if (end == null || t.endTime.getDate() !== today.getDate()) {
+          totalDay = 0;
+          return totalDay;
+        } else {
           let duration = moment.duration(end.diff(now));
           let days = duration.asHours();
-
           totalDay = totalDay + days;
           return totalDay;
         }
@@ -31,7 +32,8 @@ exports.getIndex = (req, res, next) => {
         pageTitle: "Home",
         staffInfo: staffInfo,
         workTimes: result,
-        totalDay: totalDay
+        totalDay: totalDay,
+        moment: moment
       });
     })
     .catch((err) => console.log(err));
@@ -51,7 +53,7 @@ exports.postWorkTime = (req, res, next) => {
     .save()
     .then((result) => {
       // console.log(result);
-      console.log("POST WT");
+      console.log("POST WorkTime");
     })
     .catch((err) => {
       console.log(err);
@@ -69,7 +71,8 @@ exports.getTest = (req, res, next) => {
       res.render("staff/attendance", {
         pageTitle: "Attendance Page ",
         workTime: result,
-        staffName: req.staff.name
+        staffName: req.staff.name,
+        moment: moment
       });
     })
     .catch((err) => {
@@ -110,4 +113,30 @@ exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
     pageTitle: "Resister Covid Infomation"
   });
+};
+
+exports.postTimeOff = (req, res, next) => {
+  const offTime = req.body.offTime;
+  const reason = req.body.reason;
+  const offHours = req.body.offHours;
+  const offTimes = new OffTime({
+    offTime: offTime,
+    reason: reason,
+    offHours: offHours,
+    staffId: req.staff
+  });
+
+  if (offHours > 0 && offHours <= 8) {
+    offTimes
+      .save()
+      .then((result) => {
+        req.staff.updateAnnualLeave(offHours);
+        console.log("POST OFF TIME ");
+        res.redirect("/");
+      })
+      .catch((err) => console.log(err));
+  } else {
+    console.log("invalid time number!!!");
+    res.redirect("/");
+  }
 };

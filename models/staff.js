@@ -48,4 +48,17 @@ const staffSchema = new Schema({
   }
 });
 
+staffSchema.methods.updateAnnualLeave = function (hours) {
+  const day = hours / 8;
+
+  this.annualLeave = this.annualLeave - day;
+
+  if (this.annualLeave >= 0) {
+    this.save();
+  } else {
+    this.annualLeave = 0;
+    this.save();
+  }
+};
+
 module.exports = mongoose.model("Staff", staffSchema);
