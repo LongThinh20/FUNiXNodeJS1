@@ -31,20 +31,9 @@ const staffSchema = new Schema({
     type: String,
     required: true
   },
-  workTimes: {
-    item: [
-      {
-        workTimeId: {
-          type: Schema.Types.ObjectId,
-          ref: "WorkTime",
-          required: true
-        },
-        totalTime: {
-          type: Number,
-          required: true
-        }
-      }
-    ]
+  overTime: {
+    type: Number,
+    required: true
   }
 });
 

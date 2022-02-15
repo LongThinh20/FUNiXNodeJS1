@@ -13,7 +13,6 @@ exports.getIndex = (req, res, next) => {
     })
     .then((result) => {
       let totalDay = 0;
-
       result.map((t) => {
         let end = moment(t.endTime);
         let now = moment(t.startTime);
@@ -47,13 +46,15 @@ exports.postWorkTime = (req, res, next) => {
     workSpace: workSpace,
     startTime: startTime,
     endTime: null,
+    total: null,
+    overTime: null,
+    annualLeave: 0,
     staffId: req.staff
   });
   workTimes
     .save()
     .then((result) => {
-      // console.log(result);
-      console.log("POST WorkTime");
+      console.log("POST WORKTIME");
     })
     .catch((err) => {
       console.log(err);
@@ -85,6 +86,19 @@ exports.postTest = (req, res, next) => {
   WorkTime.findById(workTimeId)
     .then((workTime) => {
       workTime.endTime = new Date();
+      let end = moment(workTime.endTime);
+      let now = moment(workTime.startTime);
+      let duration = moment.duration(end.diff(now));
+      let days = duration.asHours();
+
+      workTime.total = days;
+
+      if (days >= 8) {
+        workTime.overTime = 8 - days;
+      } else {
+        workTime.overTime = 0;
+      }
+
       return workTime.save();
     })
     .then((result) => {
@@ -126,6 +140,15 @@ exports.postTimeOff = (req, res, next) => {
     staffId: req.staff
   });
 
+  WorkTime.find()
+    .then((workTimes) => {
+      return workTimes;
+    })
+    .then((workTime) => {
+      console.log(workTime);
+    })
+    .catch((err) => console.log(err));
+
   if (offHours > 0 && offHours <= 8) {
     offTimes
       .save()
@@ -139,4 +162,16 @@ exports.postTimeOff = (req, res, next) => {
     console.log("invalid time number!!!");
     res.redirect("/");
   }
+};
+
+exports.getWorkTimeAndSalary = (req, res, next) => {
+  WorkTime.find()
+    .then((workTimes) => {
+      res.render("staff/workTimeAndSalary", {
+        pageTitle: "WorkTimeAndSalary Page ",
+        moment: moment,
+        workTimes: workTimes
+      });
+    })
+    .catch((err) => console.log(err));
 };
