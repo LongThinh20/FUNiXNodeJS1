@@ -47,22 +47,12 @@ staffSchema.methods.updateAnnualLeave = function (hours) {
 
   this.annualLeave = this.annualLeave - day;
 
-  if (this.annualLeave >= 0) {
+  if (this.annualLeave > 0) {
     this.save();
   } else {
     this.annualLeave = 0;
     this.save();
   }
-};
-
-staffSchema.methods.addOffTime = function (offTime) {
-  const updateOffTimes = [...this.offTime];
-
-  updateOffTimes.push(offTime);
-
-  this.offTime = updateOffTimes;
-
-  return this.save();
 };
 
 module.exports = mongoose.model("Staff", staffSchema);

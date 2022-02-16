@@ -30,14 +30,8 @@ const covidSchema = new Schema({
     }
   ],
   infected: {
-    infectedDate: {
-      type: Date,
-      required: true
-    },
-    cureDate: {
-      type: Date,
-      required: true
-    }
+    infectedDate: Date,
+    cureDate: Date
   },
   tempInfo: [
     {
@@ -50,7 +44,11 @@ const covidSchema = new Schema({
         required: true
       }
     }
-  ]
+  ],
+  staffId: {
+    type: Schema.Types.ObjectId,
+    require: true
+  }
 });
 
 module.exports = mongoose.model("covid", covidSchema);
