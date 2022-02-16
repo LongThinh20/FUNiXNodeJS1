@@ -1,3 +1,4 @@
+const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -31,10 +32,14 @@ const staffSchema = new Schema({
     type: String,
     required: true
   },
-  overTime: {
-    type: Number,
-    required: true
-  }
+  offTime: [
+    {
+      offTimeId: {
+        type: Schema.Types.ObjectId,
+        required: true
+      }
+    }
+  ]
 });
 
 staffSchema.methods.updateAnnualLeave = function (hours) {
@@ -48,6 +53,16 @@ staffSchema.methods.updateAnnualLeave = function (hours) {
     this.annualLeave = 0;
     this.save();
   }
+};
+
+staffSchema.methods.addOffTime = function (offTime) {
+  const updateOffTimes = [...this.offTime];
+
+  updateOffTimes.push(offTime);
+
+  this.offTime = updateOffTimes;
+
+  return this.save();
 };
 
 module.exports = mongoose.model("Staff", staffSchema);

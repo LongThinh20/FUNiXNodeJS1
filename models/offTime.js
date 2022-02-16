@@ -18,8 +18,8 @@ const offTimeSchema = new Schema({
   staffId: {
     type: Schema.Types.ObjectId,
     ref: "Staff",
-    required: true
+    require: true
   }
 });
 
-module.exports = mongoose.model("offTime", offTimeSchema);
+module.exports = mongoose.model("OffTime", offTimeSchema);

@@ -19,7 +19,6 @@ const workTimeSchema = new Schema({
   annualLeave: Number,
   staffId: {
     type: Schema.Types.ObjectId,
-    ref: "staff",
     required: true
   }
 });
