@@ -1,7 +1,6 @@
 const moment = require("moment");
 const Methods = require("../utils/methods");
 
-//POST-/
 exports.getWorkTimesList = (req, res, next) => {
   const workTimes = req.staff.workTime;
   const offTimes = req.staff.offTime;
@@ -10,7 +9,6 @@ exports.getWorkTimesList = (req, res, next) => {
     pageTitle: "Work Page",
     staffInfo: req.staff,
     isWork: false,
-
     workTimes: Methods.getTotalTimeLastDate(workTimes, offTimes),
     totalTime: Methods.getTotalTimeLastDate(workTimes, offTimes),
     moment
@@ -25,6 +23,7 @@ exports.postStartWorkTime = (req, res, next) => {
     total: 0,
     overTime: 0
   };
+
   req.staff
     .addWorkTime(workTime)
     .then(() => {
@@ -54,7 +53,7 @@ exports.postEndWorkTime = (req, res, next) => {
     .updateWorkTime(endTime)
     .then(() => {
       console.log("POST END WORKTIME");
-      res.redirect("/register-work");
+      res.redirect("/registerWork");
     })
     .catch((err) => console.log(err));
 };

@@ -76,7 +76,7 @@ class Methods {
     }
     //
     //get list work time today
-    if (workTimes.length) {
+    if (workTimes.length > 0) {
       const workTimesToday = workTimes.filter(
         (t) => t.startTime.getDate() === today.getDate()
       );
