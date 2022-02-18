@@ -1,21 +1,16 @@
 class Methods {
   getSalary = (staff, month) => {
-    const year = 2021;
-    const lastDayOfMonth = new Date(year, month, 0).getDate();
-
-    console.log(lastDayOfMonth);
-
-    const workTime = staff.workTime;
-    const offTime = staff.offTime;
+    const workTimes = staff.workTime;
+    const offTimes = staff.offTime;
     const salaryScale = staff.salaryScale;
 
-    //tìm overtime && shortTime
     let overTime = 0;
     let shortTime = 0;
+    let salary = 0;
     const listDayLeave = [];
 
-    //get date leave
-    offTime.forEach((off) => {
+    //get list date leave
+    offTimes.forEach((off) => {
       const listOffTime = off.offTime.split(",");
       const timeLeave = off.offHours;
       listOffTime.forEach((date) => {
@@ -24,23 +19,52 @@ class Methods {
         }
       });
     });
-
+    //
+    //
     //get over Time && short Time
-    workTime.forEach((work) => {
+    workTimes.forEach((work) => {
       if (work.endTime.getMonth() + 1 === Number(month)) {
         overTime += work.overTime;
-      }
-      listDayLeave.forEach((date) => {
-        work.endTime.getDate();
-        if (Number(date.date.slice(0, 2)) === work.endTime.getDate()) {
-          if (work.total + date.hours < 8) {
-            shortTime += 8 - (work.total + date.hours);
-          }
+        if (work.total < 8) {
+          listDayLeave.forEach((date) => {
+            if (
+              work.endTime.getDate() === Number(date.date.slice(0, 2)) &&
+              date.hours + work.total <= 8
+            ) {
+              shortTime += 8 - (date.hours + work.total);
+            }
+          });
+          shortTime += 8 - work.total;
         }
-      });
+      }
     });
 
-    return (salaryScale * 3000000 + (overTime - shortTime) * 200000).toFixed(0);
+    if (month) {
+      salary = (
+        salaryScale * 3000000 +
+        (overTime - shortTime) * 200000
+      ).toFixed(0);
+    }
+
+    return salary;
+  };
+
+  getTotalTime = (workTime, offTime) => {
+    let totalTime = 0;
+    let totalTimeLeave = 0;
+
+    offTime.forEach((t) => {
+      let numberAnnuaLeave = t.offTime.split(",").length;
+      totalTimeLeave += numberAnnuaLeave * t.offHours;
+    });
+    if (workTime.length) {
+      workTime.forEach((t) => {
+        totalTime += t.total;
+      });
+      if (workTime[workTime.length - 1].endTime.getHours() === 24) {
+        totalTime += totalTimeLeave;
+      }
+    }
   };
 }
 

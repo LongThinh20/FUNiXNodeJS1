@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  Staff.findById("620e437f824b7ce72c972f48")
+  Staff.findById("620f1f2892cac80bbbe88789")
     .then((staff) => {
       req.staff = staff;
       next();
@@ -39,7 +39,7 @@ mongoose
         const staff = new Staff({
           name: "Nguyên Văn A",
           doB: "20-2-1994",
-          salaryScale: 1,
+          salaryScale: 1.5,
           startDate: "1-11-2021",
           department: "IT",
           annualLeave: 8,

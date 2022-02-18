@@ -35,11 +35,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <% if(workTimes.length> 0){ %>
 
                                     <% for(let time of workTimes) {%>
-
                                         <tr>
                                             <td>
                                                 <%= moment(time.endTime).format('DD/MM/YYYY') %>
@@ -58,10 +56,10 @@
                                                 <%= time.overTime %>
                                             </td>
                                         </tr>
-
                                         <% } %>
-                                            <% } %>
-
+                                            <% } else {%>
+                                                <p>Chưa có danh sách ...</p>
+                                                <% } %>
                             </tbody>
                         </table>
                         <p>Tổng thời gian làm việc : <%= totalTime %>
@@ -101,6 +99,7 @@
                         <h3>Chi tiết Lương</h3>
                         <form class="form-group form-select-month" action="/workTime" method="POST">
                             <select class="form-control select-month" name="month" id="month">
+                                <option value="0">-- Chọn tháng muốn xem --</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -114,9 +113,10 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-
+                            <button type="submit" class="btn btn-primary">Xem</button>
                         </form>
-                        <%= salary %>
+                        <input name="" id="" value="<%= salary !== 0   ? salary : 0 %>
+                        ">
 
                     </div>
                     <div class="tab-pane container fade" id="menu1">

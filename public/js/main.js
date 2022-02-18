@@ -18,11 +18,11 @@ backdrop.addEventListener("click", backdropClickHandler);
 menuToggle.addEventListener("click", menuToggleClickHandler);
 
 //  handle submit form select month 'reference view'
-if ($(".form-select-month")) {
-  $(".select-month").on("change", function () {
-    $(".form-select-month").submit();
-  });
-}
+// if ($(".form-select-month")) {
+//   $(".select-month").on("change", function () {
+//     $(".form-select-month").submit();
+//   });
+// }
 
 $(".dateeee").datepicker({
   multidate: true,
