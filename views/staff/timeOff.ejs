@@ -1,4 +1,4 @@
-<div class="tab-pane container fade" id="offTime">
+<div class="tab-pane container fade offTime" id="offTime">
     <br>
     <% if(staffInfo.annualLeave> 0 ) { %>
 
@@ -22,10 +22,10 @@
                     id="offHours" name="offHours" min="1" max="8" step="1">
             </div>
 
-            <button type="submit" class="btn btn-primary">Gửi</button>
+            <button type="submit" class="btn btn_info btn_form">Gửi</button>
         </form>
         <% }else{ %>
-            <h1> Hết ngày nghỉ phép !!</h1>
+            <h2 class="text-secondary font-italic"> Hết ngày nghỉ phép !!</h2>
             <% } %>
 
 

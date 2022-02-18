@@ -1,21 +1,18 @@
 const moment = require("moment");
+const Methods = require("../utils/methods");
 
 //POST-/
 exports.getWorkTimesList = (req, res, next) => {
-  const today = new Date();
-  let total = 0;
-  const workTimes = req.staff.workTime.filter(
-    (t) => t.startTime.getDate() === today.getDate()
-  );
-  workTimes.forEach((t) => {
-    total += t.total;
-  });
-
-  res.render("staff/home", {
-    pageTitle: "Home",
+  const workTimes = req.staff.workTime;
+  const offTimes = req.staff.offTime;
+  res.render("staff/work", {
+    path: "/adttendance",
+    pageTitle: "Work Page",
     staffInfo: req.staff,
-    workTimes: workTimes,
-    totalDay: total,
+    isWork: false,
+
+    workTimes: Methods.getTotalTimeLastDate(workTimes, offTimes),
+    totalTime: Methods.getTotalTimeLastDate(workTimes, offTimes),
     moment
   });
 };
@@ -26,8 +23,7 @@ exports.postStartWorkTime = (req, res, next) => {
     startTime: new Date(),
     endTime: null,
     total: 0,
-    overTime: 0,
-    annualLeave: 0
+    overTime: 0
   };
   req.staff
     .addWorkTime(workTime)
@@ -43,8 +39,10 @@ exports.getStartWorkTime = (req, res, next) => {
   const workTime = req.staff.workTime;
   res.render("staff/attendance", {
     pageTitle: "Attendance Page ",
+    path: "/adttendance",
     workTime: workTime[workTime.length - 1],
     staffName: req.staff.name,
+    isWork: true,
     moment
   });
 };
@@ -56,7 +54,7 @@ exports.postEndWorkTime = (req, res, next) => {
     .updateWorkTime(endTime)
     .then(() => {
       console.log("POST END WORKTIME");
-      res.redirect("/");
+      res.redirect("/register-work");
     })
     .catch((err) => console.log(err));
 };

@@ -45,8 +45,7 @@ const staffSchema = new Schema({
         type: Date
       },
       total: Number,
-      overTime: Number,
-      annualLeave: Number
+      overTime: Number
     }
   ],
   offTime: [

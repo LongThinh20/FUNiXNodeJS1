@@ -1,89 +1,78 @@
 <%- include('../includes/head.ejs') %>
-    </head>
+    <%- include('../includes/navigation.ejs') %>
+        <main class="container">
+            <h2>THÔNG TIN GIỜ LÀM && LƯƠNG </h2>
+            <br>
+            <h3 class="text-title">Danh sách giờ làm</h3>
+            <% if(workTimes.length> 0 ){ %>
+                <table class="table styleBox">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Thời gian bắt đầu </th>
+                            <th>Thời gian kết thúc</th>
+                            <th>Nơi làm việc</th>
+                            <th>Số giờ làm thêm </th>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-            <main class="container">
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                <h1>THÔNG TIN GIỜ LÀM && LƯƠNG </h1>
+                        <% for(let time of workTimes) {%>
+                            <tr>
+                                <td>
+                                    <%= moment(time.endTime).format('DD/MM/YYYY') %>
+                                </td>
+                                <td>
+                                    <%= moment(time.startTime).format(' h:mm A') %>
+                                </td>
+                                <td>
+                                    <%= moment(time.endTime).format(' h:mm A') %>
+                                </td>
+                                <td>
+                                    <%= time.workSpace==='home' ? ' Nhà' : time.workSpace==='company' ? ' Công ty'
+                                        : ' Khách Hàng' %>
+                                </td>
+                                <td>
+                                    <%= time.overTime %>
+                                </td>
+                            </tr>
+                            <% } %>
 
-                <!-- Nav pills -->
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#home">DANH SÁCH GIỜ LÀM </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#menu1">LƯƠNG THEO THÁNG</a>
-                    </li>
 
-                </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane container active" id="home">
-                        <br>
-                        <h3>Danh sách giờ làm</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Ngày</th>
-                                    <th>Thời gian bắt đầu </th>
-                                    <th>Thời gian kết thúc</th>
-                                    <th>Nơi làm việc</th>
-                                    <th>Số giờ làm thêm </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if(workTimes.length> 0){ %>
-
-                                    <% for(let time of workTimes) {%>
-                                        <tr>
-                                            <td>
-                                                <%= moment(time.endTime).format('DD/MM/YYYY') %>
-                                            </td>
-                                            <td>
-                                                <%= moment(time.startTime).format(' h:mm:ss a') %>
-                                            </td>
-                                            <td>
-                                                <%= moment(time.endTime).format(' h:mm:ss a') %>
-                                            </td>
-                                            <td>
-                                                <%= time.workSpace==='home' ? ' Nhà' : time.workSpace==='company'
-                                                    ? ' Công ty' : ' Khách Hàng' %>
-                                            </td>
-                                            <td>
-                                                <%= time.overTime %>
-                                            </td>
-                                        </tr>
-                                        <% } %>
-                                            <% } else {%>
-                                                <p>Chưa có danh sách ...</p>
-                                                <% } %>
-                            </tbody>
-                        </table>
-                        <p>Tổng thời gian làm việc : <%= totalTime %>
+                    </tbody>
+                </table>
+                <% } else {%>
+                    <p>Chưa có dữ liệu ...</p>
+                    <% } %>
+                        <p class="pl-5"><span class="font-italic text-secondary">Tổng giờ đã làm :</span>
+                            <span class="font-weight-bold">
+                                <%= totalTime %> (giờ)
+                            </span>
                         </p>
 
+
                         <br>
-                        <h3>Danh sách đăng ký nghỉ phép </h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Ngày</th>
-                                    <th>Số giờ đăng kí nghỉ</th>
-                                    <th>Lý do</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if(offTimes.length> 0){ %>
+                        <h3 class="text-title">Danh sách đăng ký nghỉ phép </h3>
+                        <% if(offTimes.length> 0){ %>
+                            <table class="table styleBox">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Số giờ đăng kí nghỉ</th>
+                                        <th>Lý do</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
 
                                     <% for(let time of offTimes) {%>
                                         <tr>
                                             <td>
                                                 <%= (time.offTime) %>
                                             </td>
-                                            <td colspan="3">
+                                            <td>
                                                 <%= time.offHours %>
                                             </td>
                                             <td>
@@ -92,39 +81,35 @@
 
                                         </tr>
                                         <% } %>
-                                            <% } %>
-                            </tbody>
-                        </table>
-                        <br>
-                        <h3>Chi tiết Lương</h3>
-                        <form class="form-group form-select-month" action="/workTime" method="POST">
-                            <select class="form-control select-month" name="month" id="month">
-                                <option value="0">-- Chọn tháng muốn xem --</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Xem</button>
-                        </form>
-                        <input name="" id="" value="<%= salary !== 0   ? salary : 0 %>
+
+                                </tbody>
+                            </table>
+                            <% }else{ %>
+                                <h4 class="pl-2 font-italic">Chưa có dữ liệu ...</h4>
+                                <% } %>
+
+                                    <br>
+                                    <h3 class="text-title">Chi tiết Lương</h3>
+                                    <form class="form-group form-select-month" action="/workTime" method="POST">
+                                        <select class="form-control select-month" name="month" id="month">
+                                            <option value="0">-- Chọn tháng muốn xem --</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                        <br>
+                                        <button type="submit" class="btn btn_info">Xem</button>
+                                    </form>
+                                    <input value="<%= salary !== 0   ? salary : 0 %>
                         ">
-
-                    </div>
-                    <div class="tab-pane container fade" id="menu1">
-
-
-
-                    </div>
-
-                </div>
-            </main>
-            <%- include('../includes/end.ejs') %>
+        </main>
+        <%- include('../includes/end.ejs') %>

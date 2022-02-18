@@ -5,12 +5,15 @@ const attendanceController = require("../controllers/attendance");
 const covidController = require("../controllers/covid");
 const workTimeAndSalaryController = require("../controllers/workTimeAndSalary");
 const OffTimeController = require("../controllers/offTime");
+const HomeController = require("../controllers/home");
 
 const router = express.Router();
 
-router.get("/", attendanceController.getWorkTimesList);
+router.get("/", HomeController.getIndex);
 
-router.post("/", attendanceController.postStartWorkTime);
+router.get("/register-work", attendanceController.getWorkTimesList);
+
+router.post("/register-work ", attendanceController.postStartWorkTime);
 
 router.get("/attendance", attendanceController.getStartWorkTime);
 
@@ -30,8 +33,8 @@ router.post("/vaccine", covidController.postVaccineInfo);
 
 router.post("/temperature", covidController.postTemperatureInfo);
 
-router.get("/infomation", staffController.getStaffInfo);
+router.get("/staffInfo", staffController.getStaffInfo);
 
-router.post("/infomation", staffController.postUpdateAvatar);
+router.post("/staffInfo", staffController.postUpdateAvatar);
 
 module.exports = router;

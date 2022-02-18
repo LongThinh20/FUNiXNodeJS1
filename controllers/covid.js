@@ -1,6 +1,8 @@
 exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
-    pageTitle: "Resister Covid Infomation"
+    path: "/covid",
+    pageTitle: "Resister Covid Infomation",
+    isWork: false
   });
 };
 

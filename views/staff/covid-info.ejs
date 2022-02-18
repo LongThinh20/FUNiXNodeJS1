@@ -1,20 +1,17 @@
 <%- include('../includes/head.ejs') %>
-    </head>
-
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-            <main class="container">
-
-                <h1>THÔNG TIN COVID </h1>
+    <%- include('../includes/navigation.ejs') %>
+        <main class="container ">
+            <div class="covidInfo ">
+                <h2>THÔNG TIN COVID </h2>
                 <form action="/temperature" method="post">
                     <div class="form-group">
-                        <label for="temp">Thân nhiệt : </label>
+                        <label for="temp" class="text-secondary font-italic ml-2">Thân nhiệt : </label>
                         <input type="number" class="form-control" placeholder="Điền giá trị thân nhiệt ... "
                             name="temperature" required>
-                        <label for="pwd">Ngày đo thân nhiệt</label>
+                        <label for="pwd" class="text-secondary font-italic ml-2">Ngày đo thân nhiệt</label>
                         <input type="datetime-local" class="form-control" name="timeTemperature" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Gửi</button>
+                    <button type="submit" class="btn btn_info btn_form">Gửi</button>
                 </form>
                 <br>
                 <br>
@@ -23,35 +20,36 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <h5>Mũi 1 vaccine</h5>
-                                <label for="pwd">Loại vaccine</label>
+                                <label for="pwd" class="text-secondary font-italic ml-2">Loại vaccine</label>
                                 <input type="text" class="form-control" placeholder="Điền tên vaccine ..."
                                     name="nameVaccine1" required>
-                                <label for="pwd">Ngày tiêm</label>
+                                <label for="pwd" class="text-secondary font-italic ml-2">Ngày tiêm</label>
                                 <input type="date" class="form-control" name="dateVaccine1" required>
                             </div>
                             <div class="col-12 col-md-6">
                                 <h5>Mũi 2 vaccine</h5>
-                                <label for="pwd">Loại vaccine</label>
+                                <label for="pwd" class="text-secondary font-italic ml-2">Loại vaccine</label>
                                 <input type="text" class="form-control" placeholder="Điền tên vaccine ..."
                                     name="nameVaccine2" required>
-                                <label for="pwd">Ngày tiêm</label>
+                                <label for="pwd" class="text-secondary font-italic ml-2">Ngày tiêm</label>
                                 <input type="date" class="form-control" name="dateVaccine2" required>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Gửi</button>
+                    <button type="submit" class="btn btn_info btn_form">Gửi</button>
                 </form>
                 <br>
                 <br>
                 <form action="/infected" method="post">
                     <div class="form-group">
-                        <label for="temp">Ngày nhiễm : </label>
+                        <label for="temp" class="text-secondary font-italic ml-2">Ngày nhiễm : </label>
                         <input type="date" class="form-control" placeholder=" " name="infectedDate">
-                        <label for="pwd">Ngày khỏi bệnh : </label>
+                        <label for="pwd" class="text-secondary font-italic ml-2">Ngày khỏi bệnh : </label>
                         <input type="date" class="form-control" name="cureDate">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Gửi</button>
+                    <button type="submit" class="btn btn_info btn_form">Gửi</button>
                 </form>
-            </main>
-            <%- include('../includes/end.ejs') %>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

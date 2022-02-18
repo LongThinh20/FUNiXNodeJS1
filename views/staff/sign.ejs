@@ -2,47 +2,53 @@
     <form method="post" action="/">
         <br>
         <input type="text" value="<%= staffInfo.name %> " class="btn btn-outline-primary" disabled>
-        <p>Chọn nơi làm việc :</p>
-        <div class="form-check">
+        <p class="text-secondary">Chọn nơi làm việc :</p>
+        <div class="form-check pl-5">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="workSpace" value="company" checked="checked"><i
                     class="fa fa-building"></i> ( Công ty )
             </label>
         </div>
-        <div class="form-check">
+        <div class="form-check pl-5">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="workSpace" value="home"><i class="fa fa-home"></i> (
                 Nhà )
             </label>
         </div>
 
-        <div class="form-check">
+        <div class="form-check pl-5">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="workSpace" value="customer"><i
                     class="fa fa-users"></i> ( Khách hàng )
             </label>
         </div>
-        <!-- <a href="/attendance?status=true">BẮT ĐẦU LÀM VIỆC</a> -->
-        <button class="btn btn-primary" type="submit">BẮT ĐẦU LÀM</button>
+
+        <button class="btn btn_info mt-3 ml-4" type="submit">BẮT ĐẦU LÀM</button>
         <input type="hidden" name="staffId" value="<%= staffInfo._id %> ">
     </form>
     <br>
-    <p> Số giờ làm : <%= totalDay %> ( giờ )
+    <br>
+    <h3 class="text-title">Danh sách lượt làm việc trong ngày </h3>
+    <p class="ml-5"> <span class="text-secondary font-italic">Số giờ làm :</span>
+        <span class="font-weight-bold">
+            <%= totalTime ? totalTime.totalTime : 0 %> ( giờ )
+        </span>
     </p>
-    <% if(workTimes.length> 0){ %>
-
-        <% for(let time of workTimes) {%>
-            <div class="card text-left">
+    <% if(workTimes ){ %>
+        <% for(let time of workTimes.workTimesToday) {%>
+            <div class="card text-left styleBox workToday font-weight-bold ">
                 <div class="card-body">
+
                     <p class="card-text">
-                        <%= time.workSpace==='home' ? ' Nhà' : time.workSpace==='company' ? ' Công ty' : ' Khách Hàng'
-                            %>
+                        <i
+                            class=" text-info <%= time.workSpace==='home' ? 'fa fa-home' : time.workSpace==='company' ? 'fa fa-building':'fa fa-users'  %> "></i>
+                        <span>
+                            <%= moment(time.startTime).format('DD/MM - h:mm A') %> --
+                                <%= moment(time.endTime).format(' h:mm A') %>
+                        </span>
                     </p>
                     <p class="card-text">
-                        <%= moment(time.startTime).format('DD/MM/YYYY, h:mm:ss a') %>
-                    </p>
-                    <p class="card-text">
-                        <%= moment(time.endTime).format('DD/MM/YYYY, h:mm:ss a') %>
+
                     </p>
                 </div>
             </div>
