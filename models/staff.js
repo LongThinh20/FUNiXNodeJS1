@@ -1,6 +1,5 @@
-const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
-
+const moment = require("moment");
 const Schema = mongoose.Schema;
 
 const staffSchema = new Schema({
@@ -32,27 +31,106 @@ const staffSchema = new Schema({
     type: String,
     required: true
   },
+  workTime: [
+    {
+      workSpace: {
+        type: String,
+        required: true
+      },
+      startTime: {
+        type: Date,
+        required: true
+      },
+      endTime: {
+        type: Date
+      },
+      total: Number,
+      overTime: Number,
+      annualLeave: Number
+    }
+  ],
   offTime: [
     {
-      offTimeId: {
-        type: Schema.Types.ObjectId,
+      offTime: {
+        type: String,
+        required: true
+      },
+      reason: {
+        type: String,
+        required: true
+      },
+      offHours: {
+        type: Number,
         required: true
       }
     }
-  ]
+  ],
+  covidInfo: {
+    vaccineInfo: [
+      {
+        name: String,
+        date: Date
+      }
+    ],
+    infectedInfo: [{ infectedDate: Date, cureDate: Date }],
+    temperatureInfo: [
+      {
+        temperature: Number,
+        time: Date
+      }
+    ]
+  }
 });
 
-staffSchema.methods.updateAnnualLeave = function (hours) {
-  const day = hours / 8;
+staffSchema.methods.addOffTime = function (offTimes) {
+  const { offTime, reason, offHours } = offTimes;
+  // let timesDatePicker = offTime.split(",").length - 1 + 1;
+  const updateOffTime = [...this.offTime];
+  //update annual Leave
+  let dayLeave = offHours / 8;
+  this.annualLeave = this.annualLeave - dayLeave;
+  updateOffTime.push(offTimes);
+  this.offTime = updateOffTime;
+  return this.save();
+};
 
-  this.annualLeave = this.annualLeave - day;
+staffSchema.methods.addWorkTime = function (startWorkTime) {
+  const updateWorkTime = [...this.workTime];
 
-  if (this.annualLeave > 0) {
-    this.save();
-  } else {
-    this.annualLeave = 0;
-    this.save();
+  updateWorkTime.push(startWorkTime);
+
+  this.workTime = updateWorkTime;
+
+  return this.save();
+};
+
+staffSchema.methods.updateWorkTime = function (endTime) {
+  const lastWorkTime = this.workTime[this.workTime.length - 1];
+
+  lastWorkTime.endTime = endTime;
+
+  let end = moment(lastWorkTime.endTime);
+  let start = moment(lastWorkTime.startTime);
+  let duration = moment.duration(end.diff(start));
+  let times = duration.asHours();
+
+  if (times > 8) {
+    lastWorkTime.overTime = times - 8;
   }
+  lastWorkTime.total = times;
+
+  return this.save();
+};
+
+staffSchema.methods.updateVaccineInfo = function (vaccine1, vaccine2) {
+  const updateVaccinInfo = [...this.covidInfo.vaccineInfo];
+  updateVaccinInfo.push(vaccine1);
+  updateVaccinInfo.push(vaccine2);
+  this.covidInfo.vaccineInfo = updateVaccinInfo;
+
+  console.log(this.covidInfo.vaccineInfo);
+
+  return this.save();
 };
 
 module.exports = mongoose.model("Staff", staffSchema);

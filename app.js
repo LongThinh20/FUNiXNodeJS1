@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  Staff.findById("620a296ed546b1c1594ab2da")
+  Staff.findById("620e437f824b7ce72c972f48")
     .then((staff) => {
       req.staff = staff;
       next();
@@ -43,7 +43,13 @@ mongoose
           startDate: "1-11-2021",
           department: "IT",
           annualLeave: 8,
-          overTime: 0,
+          workTime: [],
+          offTime: [],
+          covidInfo: {
+            vaccineInfo: [],
+            infected: [],
+            tempInfo: []
+          },
           image:
             "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg"
         });

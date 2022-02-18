@@ -27,7 +27,6 @@
         <input type="hidden" name="staffId" value="<%= staffInfo._id %> ">
     </form>
     <br>
-
     <p> Số giờ làm : <%= totalDay %> ( giờ )
     </p>
     <% if(workTimes.length> 0){ %>
@@ -36,13 +35,8 @@
             <div class="card text-left">
                 <div class="card-body">
                     <p class="card-text">
-                        <% if(time.workSpace==='company' ){ %>
-                            Công ty
-                            <% } else if(time.workSpace==='home' ){ %>
-                                Nhà
-                                <% }else{ %>
-                                    Khách hàng
-                                    <% } %>
+                        <%= time.workSpace==='home' ? ' Nhà' : time.workSpace==='company' ? ' Công ty' : ' Khách Hàng'
+                            %>
                     </p>
                     <p class="card-text">
                         <%= moment(time.startTime).format('DD/MM/YYYY, h:mm:ss a') %>
@@ -52,8 +46,8 @@
                     </p>
                 </div>
             </div>
+            <br>
 
             <% } %>
                 <% } %>
-
 </div>

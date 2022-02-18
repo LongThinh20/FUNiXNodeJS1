@@ -21,42 +21,109 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane container active" id="home">
-                        <% if(workTimes.length> 0){ %>
+                        <br>
+                        <h3>Danh sách giờ làm</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Thời gian bắt đầu </th>
+                                    <th>Thời gian kết thúc</th>
+                                    <th>Nơi làm việc</th>
+                                    <th>Số giờ làm thêm </th>
 
-                            <% for(let time of workTimes) {%>
-                                <div class="card text-left">
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            Ngày : <%= moment(time.endTime).format('DD/MM/YYYY') %>
-                                        </p>
-                                        <p class="card-text">
-                                            Thời gian bắt đầu : <%= moment(time.startTime).format(' h:mm:ss a') %>
-                                        </p>
-                                        <p class="card-text">
-                                            Thời gian kết thúc : <%= moment(time.endTime).format(' h:mm:ss a') %>
-                                        </p>
-                                        <p class="card-text">
-                                            Nơi làm việc : <% if(time.workSpace==='company' ){ %>
-                                                Công ty
-                                                <% } else if(time.workSpace==='home' ){ %>
-                                                    Nhà
-                                                    <% }else{ %>
-                                                        Khách hàng
-                                                        <% } %>
-                                        </p>
-                                        <p class="card-text">
-                                            Thời gian làm việc : <%= time.total %>
-                                        </p>
-                                        <p class="card-text">
-                                            Số giờ tính thêm : <%= time.overTime %>
-                                        </p>
-                                    </div>
-                                </div>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                <% } %>
-                                    <% } %>
+                                <% if(workTimes.length> 0){ %>
+
+                                    <% for(let time of workTimes) {%>
+
+                                        <tr>
+                                            <td>
+                                                <%= moment(time.endTime).format('DD/MM/YYYY') %>
+                                            </td>
+                                            <td>
+                                                <%= moment(time.startTime).format(' h:mm:ss a') %>
+                                            </td>
+                                            <td>
+                                                <%= moment(time.endTime).format(' h:mm:ss a') %>
+                                            </td>
+                                            <td>
+                                                <%= time.workSpace==='home' ? ' Nhà' : time.workSpace==='company'
+                                                    ? ' Công ty' : ' Khách Hàng' %>
+                                            </td>
+                                            <td>
+                                                <%= time.overTime %>
+                                            </td>
+                                        </tr>
+
+                                        <% } %>
+                                            <% } %>
+
+                            </tbody>
+                        </table>
+                        <p>Tổng thời gian làm việc : <%= totalTime %>
+                        </p>
+
+                        <br>
+                        <h3>Danh sách đăng ký nghỉ phép </h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Số giờ đăng kí nghỉ</th>
+                                    <th>Lý do</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(offTimes.length> 0){ %>
+
+                                    <% for(let time of offTimes) {%>
+                                        <tr>
+                                            <td>
+                                                <%= (time.offTime) %>
+                                            </td>
+                                            <td colspan="3">
+                                                <%= time.offHours %>
+                                            </td>
+                                            <td>
+                                                <%= time.reason %>
+                                            </td>
+
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+                            </tbody>
+                        </table>
+                        <br>
+                        <h3>Chi tiết Lương</h3>
+                        <form class="form-group form-select-month" action="/workTime" method="POST">
+                            <select class="form-control select-month" name="month" id="month">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+
+                        </form>
+                        <%= salary %>
+
                     </div>
-                    <div class="tab-pane container fade" id="menu1">...</div>
+                    <div class="tab-pane container fade" id="menu1">
+
+
+
+                    </div>
 
                 </div>
             </main>

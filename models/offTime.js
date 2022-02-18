@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const offTimeSchema = new Schema({
   offTime: {
-    type: Date,
+    type: String,
     required: true
   },
   reason: {
