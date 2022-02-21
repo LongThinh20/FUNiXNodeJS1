@@ -34,7 +34,7 @@
             <%= totalTime ? totalTime.totalTime : 0 %> ( giờ )
         </span>
     </p>
-    <% if(workTimes ){ %>
+    <% if(workTimes.workTimesToday ){ %>
         <% for(let time of workTimes.workTimesToday) {%>
             <div class="card text-left styleBox workToday font-weight-bold ">
                 <div class="card-body">
