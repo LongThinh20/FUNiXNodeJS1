@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
 
 const errorController = require("./controllers/error");
 const Staff = require("./models/staff");
@@ -16,6 +17,7 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "session"
 });
+const csrfProtection = csrf();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -34,9 +36,18 @@ app.use(
   })
 );
 
+app.use(csrfProtection);
+
 app.use((req, res, next) => {
-  Staff.findById("621a4792b83960988909168c")
+  if (!req.session.staff) {
+    return next();
+  }
+
+  Staff.findById(req.session.staff._id)
     .then((staff) => {
+      if (!staff) {
+        return next();
+      }
       req.staff = staff;
       next();
     })
@@ -55,6 +66,8 @@ mongoose
       if (!staff) {
         const staff = new Staff({
           name: "Nguyên Văn A",
+          user: "staff",
+          password: "staff",
           doB: new Date(1994, 02, 20),
           salaryScale: 1.5,
           startDate: new Date(2022, 02, 02),

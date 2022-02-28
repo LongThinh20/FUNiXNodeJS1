@@ -3,10 +3,11 @@ exports.getStaffInfo = (req, res, next) => {
   const staffInfo = req.staff;
   res.render("staff/staff-info", {
     path: "/staffInfo",
-    pageTitle: "Staff Information",
+    pageTitle: "Thông tin nhân viên",
     staffInfo: staffInfo,
     isWork: false,
-    moment
+    moment,
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 

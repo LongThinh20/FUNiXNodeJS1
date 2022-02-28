@@ -6,13 +6,14 @@ exports.getWorkTimeAndSalary = (req, res, next) => {
   const salary = Methods.getSalary(req.staff, req.body.month);
   res.render("staff/workTimeAndSalary", {
     path: "/workTimeAndSalary",
-    pageTitle: "WorkTimeAndSalary Page ",
+    pageTitle: "Thông tin giờ làm và lương",
     moment,
     workTimes: req.staff.workTime,
     totalTime: Methods.getTotalTime(req.staff.workTime),
     offTimes: req.staff.offTime,
     isWork: false,
-    salary
+    salary,
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -20,7 +21,7 @@ exports.postSalaryToMonth = (req, res, next) => {
   const salary = Methods.getSalary(req.staff, req.body.month);
   res.render("staff/workTimeAndSalary", {
     path: "/workTimeAndSalary",
-    pageTitle: "WorkTimeAndSalary Page ",
+    pageTitle: "Thông tin giờ làm và lương",
     moment,
     workTimes: req.staff.workTime,
     totalTime: Methods.getTotalTime(req.staff.workTime),

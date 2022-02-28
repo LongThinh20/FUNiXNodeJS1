@@ -1,5 +1,7 @@
 const express = require("express");
 
+const isAuth = require("../middleware/is-auth");
+
 const staffController = require("../controllers/staff");
 const attendanceController = require("../controllers/attendance");
 const covidController = require("../controllers/covid");
@@ -9,32 +11,36 @@ const HomeController = require("../controllers/home");
 
 const router = express.Router();
 
-router.get("/", HomeController.getIndex);
+router.get("/", isAuth, HomeController.getIndex);
 
-router.get("/registerWork", attendanceController.getWorkTimesList);
+router.get("/registerWork", isAuth, attendanceController.getWorkTimesList);
 
-router.post("/registerWork", attendanceController.postStartWorkTime);
+router.post("/registerWork", isAuth, attendanceController.postStartWorkTime);
 
-router.get("/attendance", attendanceController.getStartWorkTime);
+router.get("/attendance", isAuth, attendanceController.getStartWorkTime);
 
-router.post("/attendance", attendanceController.postEndWorkTime);
+router.post("/attendance", isAuth, attendanceController.postEndWorkTime);
 
-router.post("/time-off", OffTimeController.postTimeOff);
+router.post("/time-off", isAuth, OffTimeController.postTimeOff);
 
-router.get("/workTime", workTimeAndSalaryController.getWorkTimeAndSalary);
+router.get(
+  "/workTime",
+  isAuth,
+  workTimeAndSalaryController.getWorkTimeAndSalary
+);
 
-router.post("/workTime", workTimeAndSalaryController.postSalaryToMonth);
+router.post("/workTime", isAuth, workTimeAndSalaryController.postSalaryToMonth);
 
-router.get("/covid", covidController.getCovid);
+router.get("/covid", isAuth, covidController.getCovid);
 
-router.post("/infected", covidController.postInfectedInfo);
+router.post("/infected", isAuth, covidController.postInfectedInfo);
 
-router.post("/vaccine", covidController.postVaccineInfo);
+router.post("/vaccine", isAuth, covidController.postVaccineInfo);
 
-router.post("/temperature", covidController.postTemperatureInfo);
+router.post("/temperature", isAuth, covidController.postTemperatureInfo);
 
-router.get("/staffInfo", staffController.getStaffInfo);
+router.get("/staffInfo", isAuth, staffController.getStaffInfo);
 
-router.post("/staffInfo", staffController.postUpdateAvatar);
+router.post("/staffInfo", isAuth, staffController.postUpdateAvatar);
 
 module.exports = router;

@@ -1,8 +1,9 @@
 exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
     path: "/covid",
-    pageTitle: "Resister Covid Infomation",
-    isWork: false
+    pageTitle: "Đăng kí thông tin Covid",
+    isWork: false,
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
@@ -20,7 +21,7 @@ exports.postVaccineInfo = (req, res, next) => {
     .updateVaccineInfo(vaccine1, vaccine2)
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        pageTitle: "Đăng kí thông tin covid"
       });
     })
     .catch((err) => console.log(err));
@@ -36,7 +37,7 @@ exports.postInfectedInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        pageTitle: "Đăng kí thông tin Covid"
       });
     })
     .catch((err) => console.log(err));
@@ -52,7 +53,7 @@ exports.postTemperatureInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        pageTitle: "Đăng kí thông tin Covid"
       });
     })
     .catch((err) => console.log(err));

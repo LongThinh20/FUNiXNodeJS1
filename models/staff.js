@@ -7,6 +7,8 @@ const staffSchema = new Schema({
     type: String,
     required: true
   },
+  user: String,
+  password: String,
   doB: {
     type: Date,
     required: true

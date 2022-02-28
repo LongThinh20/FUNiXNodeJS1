@@ -1,7 +1,8 @@
 exports.getIndex = (req, res, next) => {
   res.render("staff/home", {
-    pageTitle: "Home",
+    pageTitle: "Trang chủ",
     path: "/home",
-    isWork: false
+    isWork: false,
+    isAuthenticated: req.session.isLoggedIn
   });
 };

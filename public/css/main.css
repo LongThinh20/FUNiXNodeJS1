@@ -73,6 +73,7 @@ img {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
 }
 
 .main-header__item {
@@ -88,6 +89,16 @@ img {
 .main-header__item a:hover,
 .main-header__item a:active,
 .main-header__item a.active {
+  color: #ffeb3b;
+}
+.main-header__item .logout {
+  border: none;
+  outline: none;
+  background: none;
+  color: white;
+}
+.main-header__item .logout:hover,
+.main-header__item .logout:active {
   color: #ffeb3b;
 }
 
@@ -221,10 +232,15 @@ th {
   text-align: center;
 }
 .btn_info {
-  background-color: var(--blue1);
-  color: white;
+  background-color: white;
+  color: var(--blue1);
+  border: 1px solid var(--blue2);
 }
-
+.btn_info:hover {
+  color: white;
+  background-color: #0dcaf0;
+  border: 1px solid var(--orange1);
+}
 .btn_form {
   width: 50%;
   transform: translate(50%);
@@ -233,9 +249,7 @@ th {
   background-color: var(--blue2);
   color: white;
 }
-.btn_info:hover {
-  color: white;
-}
+
 .text-title {
   font-style: italic;
   color: gray;
@@ -256,10 +270,19 @@ th {
   text-align: center;
 }
 .login {
+  background-image: linear-gradient(
+    to right,
+    var(--blue1),
+    var(--blue2),
+    var(--orange1),
+    var(--orange2)
+  );
+}
+.login .login-detail {
   width: 20%;
   margin: auto;
 }
-.login button {
+.login .login-detail button {
   width: 50%;
   transform: translate(50%);
 }
