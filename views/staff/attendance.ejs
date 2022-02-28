@@ -32,6 +32,7 @@
                 </p>
 
                 <form action="/attendance" method="post">
+                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                     <button class="btn btn-danger " type="submit">KẾT THÚC LÀM VIỆC</button>
                 </form>
 

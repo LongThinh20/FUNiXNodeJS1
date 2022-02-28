@@ -10,8 +10,7 @@ exports.getWorkTimesList = (req, res, next) => {
     isWork: false,
     workTimes: Methods.getTotalTimeLastDate(req.staff),
     totalTime: Methods.getTotalTimeLastDate(req.staff),
-    moment,
-    isAuthenticated: req.session.isLoggedIn
+    moment
   });
 };
 
@@ -43,8 +42,7 @@ exports.getStartWorkTime = (req, res, next) => {
     workTime: workTime[workTime.length - 1],
     staffName: req.staff.name,
     isWork: true,
-    moment,
-    isAuthenticated: req.session.isLoggedIn
+    moment
   });
 };
 

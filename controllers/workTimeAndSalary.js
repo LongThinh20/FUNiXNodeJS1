@@ -12,8 +12,7 @@ exports.getWorkTimeAndSalary = (req, res, next) => {
     totalTime: Methods.getTotalTime(req.staff.workTime),
     offTimes: req.staff.offTime,
     isWork: false,
-    salary,
-    isAuthenticated: req.session.isLoggedIn
+    salary
   });
 };
 

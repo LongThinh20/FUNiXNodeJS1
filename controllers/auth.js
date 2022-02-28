@@ -5,7 +5,8 @@ exports.getLogin = (req, res, next) => {
     path: "/login",
     pageTitle: "Đăng nhập",
     isWork: false,
-    isAuthenticated: req.session.isLoggedIn
+
+    errorMessage: null
   });
 };
 
@@ -16,7 +17,14 @@ exports.postLogin = (req, res, next) => {
   Staff.findOne({ user: user })
     .then((staff) => {
       if (!staff) {
-        return res.redirect("/login");
+        return res.render("auth/login", {
+          path: "/login",
+          pageTitle: "Login",
+          pageTitle: "Đăng nhập",
+          isWork: false,
+
+          errorMessage: "Tên đăng nhập hoặc mật khẩu sai"
+        });
       }
 
       req.session.staff = staff;

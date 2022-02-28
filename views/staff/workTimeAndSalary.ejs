@@ -107,6 +107,7 @@
                                             <option value="12">12</option>
                                         </select>
                                         <br>
+                                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                                         <button type="submit" class="btn btn_info">Xem</button>
                                     </form>
                                     <input value="<%= salary !== 0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ,") : 0

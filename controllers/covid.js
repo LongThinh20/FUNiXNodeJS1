@@ -2,8 +2,7 @@ exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
     path: "/covid",
     pageTitle: "Đăng kí thông tin Covid",
-    isWork: false,
-    isAuthenticated: req.session.isLoggedIn
+    isWork: false
   });
 };
 

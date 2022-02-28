@@ -6,13 +6,16 @@ exports.getStaffInfo = (req, res, next) => {
     pageTitle: "Thông tin nhân viên",
     staffInfo: staffInfo,
     isWork: false,
-    moment,
-    isAuthenticated: req.session.isLoggedIn
+    moment
   });
 };
 
 exports.postUpdateAvatar = (req, res, next) => {
-  req.staff.image = req.body.avatar;
+  const imageUrl = req.body.avatar;
+  if (!imageUrl) {
+    return res.redirect("/staffInfo");
+  }
+  req.staff.image = imageUrl;
   req.staff
     .save()
     .then(() => res.redirect("/register-work"))
