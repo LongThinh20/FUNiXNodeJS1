@@ -9,6 +9,7 @@ const staffSchema = new Schema({
   },
   user: String,
   password: String,
+  role: String,
   doB: {
     type: Date,
     required: true

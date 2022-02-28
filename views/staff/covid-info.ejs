@@ -52,6 +52,44 @@
                     <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                     <button type="submit" class="btn btn_info btn_form">Gửi</button>
                 </form>
+
+                <% if (role==='admin' ) { %>
+                    <h3 class="mt-5">THÔNG TIN COVID NHÂN VIÊN</h3>
+                    <% staffs.forEach(staff=> {%>
+                        <span class="row text-left pl-2 covidInfo_detail mt-4">
+                            <div class="col">
+                                <p class="font-weight-bold">Họ và Tên :</p>
+                                <p class="font-weight-bold">Nhiệt độ : </p>
+                                <p class="font-weight-bold">Vaccine mũi 1: </p>
+                                <p class="font-weight-bold">Vaccine mũi 2:</p>
+                                <p class="font-weight-bold">Ngày bị nhiễm</p>
+                                <p class="font-weight-bold">Ngày khỏi bệnh: </p>
+                            </div>
+                            <div class="col  ">
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    <%= staff.name %>
+                                </p>
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    - <span class="font-weight-bold">Ngày đo nhiệt độ:123</span>
+                                </p>
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    sinofarm - <span class="font-weight-bold">Ngày tiêm: 123</span>
+                                </p>
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    sinofarm - <span class="font-weight-bold">Ngày tiêm: 123</span>
+                                </p>
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    123
+                                </p>
+                                <p class="font-italic text-secondary font-weight-normal ">
+                                    123
+                                </p>
+                                <a href="" class="btn btn_info">XUẤT TRANG PDF</a>
+                            </div>
+                        </span>
+                        <% })%>
+                            <% } %>
             </div>
+
         </main>
         <%- include('../includes/end.ejs') %>

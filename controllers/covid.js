@@ -1,9 +1,21 @@
+const Staff = require("../models/staff");
+
 exports.getCovid = (req, res, next) => {
-  res.render("staff/covid-info", {
-    path: "/covid",
-    pageTitle: "Đăng kí thông tin Covid",
-    isWork: false
-  });
+  Staff.find({ role: "staff" })
+    .then((staffs) => {
+      res.render("staff/covid-info", {
+        path: "/covid",
+        pageTitle: "Đăng kí thông tin Covid",
+        isWork: false,
+        role: req.staff.role,
+        staffs
+      });
+
+      staffs.forEach((staff) => {
+        console.log(staff.covidInfo.temperatureInfo[0].temperature);
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.postVaccineInfo = (req, res, next) => {
@@ -20,7 +32,10 @@ exports.postVaccineInfo = (req, res, next) => {
     .updateVaccineInfo(vaccine1, vaccine2)
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Đăng kí thông tin covid"
+        pageTitle: "Đăng kí thông tin covid",
+        path: "/covid",
+        isWork: false,
+        role: req.staff.role
       });
     })
     .catch((err) => console.log(err));
@@ -36,7 +51,10 @@ exports.postInfectedInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Đăng kí thông tin Covid"
+        pageTitle: "Đăng kí thông tin Covid",
+        path: "/covid",
+        isWork: false,
+        role: req.staff.role
       });
     })
     .catch((err) => console.log(err));
@@ -52,7 +70,10 @@ exports.postTemperatureInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Đăng kí thông tin Covid"
+        pageTitle: "Đăng kí thông tin Covid",
+        path: "/covid",
+        isWork: false,
+        role: req.staff.role
       });
     })
     .catch((err) => console.log(err));

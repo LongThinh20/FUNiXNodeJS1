@@ -109,6 +109,7 @@ mongoose
           name: "Nguyên Văn A",
           user: "staff",
           password: "staff",
+          role: "staff",
           doB: new Date(1994, 02, 20),
           salaryScale: 1.5,
           startDate: new Date(2022, 02, 02),
