@@ -1,4 +1,7 @@
 const moment = require("moment");
+const fs = require("fs");
+const { log } = require("console");
+
 exports.getStaffInfo = (req, res, next) => {
   const staffInfo = req.staff;
   res.render("staff/staff-info", {
@@ -11,13 +14,18 @@ exports.getStaffInfo = (req, res, next) => {
 };
 
 exports.postUpdateAvatar = (req, res, next) => {
-  const imageUrl = req.body.avatar;
-  if (!imageUrl) {
+  const image = req.file;
+
+  if (!image) {
     return res.redirect("/staffInfo");
   }
+
+  const imageUrl = image.path;
+
   req.staff.image = imageUrl;
+
   req.staff
     .save()
-    .then(() => res.redirect("/register-work"))
+    .then(() => res.redirect("/registerWork"))
     .catch((error) => console.log(error));
 };

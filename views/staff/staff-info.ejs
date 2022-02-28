@@ -1,13 +1,13 @@
 <%- include('../includes/head.ejs') %>
     <%- include('../includes/navigation.ejs') %>
         <main class="container">
-            <form action="/staffInfo" method="post">
+            <form action="/staffInfo" method="post" enctype="multipart/form-data">
                 <h2>THÔNG TIN CÁ NHÂN </h2>
                 <br>
                 <div class="row ">
                     <div class="col-sm-12 col-md-4">
                         <img src="<%= staffInfo.image %> ">
-                        <input type="text" class="form-control" id="avatar" name="avatar"
+                        <input type="file" class="form-control" id="image" name="image"
                             placeholder="Điền đường dẫn ảnh ...">
                         <br>
                         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
