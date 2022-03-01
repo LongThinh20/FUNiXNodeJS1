@@ -1,4 +1,8 @@
 const Staff = require("../models/staff");
+const moment = require("moment");
+const PDFDocument = require("pdfkit");
+const path = require("path");
+const fs = require("fs");
 
 exports.getCovid = (req, res, next) => {
   Staff.find({ role: "staff" })
@@ -8,12 +12,15 @@ exports.getCovid = (req, res, next) => {
         pageTitle: "Đăng kí thông tin Covid",
         isWork: false,
         role: req.staff.role,
-        staffs
+        staffs,
+        moment
       });
 
-      staffs.forEach((staff) => {
-        console.log(staff.covidInfo.temperatureInfo[0].temperature);
-      });
+      // staffs.forEach((staff) => {
+      //   if (staff.covidInfo.temperatureInfo.length > 0) {
+      //     console.log(staff.covidInfo.temperatureInfo[0].temperature);
+      //   }
+      // });
     })
     .catch((err) => console.log(err));
 };
@@ -77,4 +84,33 @@ exports.postTemperatureInfo = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+exports.getPDF = (req, res, next) => {
+  console.log(req.params.staffId);
+
+  Staff.findById(req.params.staffId)
+    .then((staff) => {
+      const pdfDoc = new PDFDocument();
+      const pathDoc = path.join("data", "pdf");
+
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Dispositon", "inline");
+
+      pdfDoc.pipe(fs.createWriteStream(pathDoc));
+      pdfDoc.pipe(res);
+      pdfDoc.text("THÔNG TIN COVID");
+      pdfDoc.text("----------------");
+
+      pdfDoc.text("Tên nhân viên : " + staff.name);
+      pdfDoc.text(
+        "Nhiệt độ : " + staff.covidInfo.temperatureInfo[0].temperature
+      );
+      pdfDoc.text("Vaccine  1 :" + staff.covidInfo.vaccineInfo[0].name);
+      pdfDoc.text("Vaccine  2 :" + staff.covidInfo.vaccineInfo[1].name);
+      pdfDoc.end();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

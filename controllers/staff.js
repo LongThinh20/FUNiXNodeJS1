@@ -1,6 +1,6 @@
 const moment = require("moment");
 const fs = require("fs");
-const { log } = require("console");
+const deleteFile = require("../utils/file");
 
 exports.getStaffInfo = (req, res, next) => {
   const staffInfo = req.staff;
@@ -15,15 +15,12 @@ exports.getStaffInfo = (req, res, next) => {
 
 exports.postUpdateAvatar = (req, res, next) => {
   const image = req.file;
-
   if (!image) {
     return res.redirect("/staffInfo");
   }
-
+  deleteFile(req.staff.image);
   const imageUrl = image.path;
-
   req.staff.image = imageUrl;
-
   req.staff
     .save()
     .then(() => res.redirect("/registerWork"))
