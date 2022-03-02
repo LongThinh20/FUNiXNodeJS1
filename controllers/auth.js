@@ -5,7 +5,6 @@ exports.getLogin = (req, res, next) => {
     path: "/login",
     pageTitle: "Đăng nhập",
     isWork: false,
-
     errorMessage: null
   });
 };
@@ -22,7 +21,6 @@ exports.postLogin = (req, res, next) => {
           pageTitle: "Login",
           pageTitle: "Đăng nhập",
           isWork: false,
-
           errorMessage: "Tên đăng nhập hoặc mật khẩu sai"
         });
       }

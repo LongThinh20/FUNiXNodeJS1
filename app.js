@@ -10,8 +10,14 @@ const multer = require("multer");
 const errorController = require("./controllers/error");
 const Staff = require("./models/staff");
 
+const staffRoutes = require("./routes/staff");
+const authRoutes = require("./routes/auth");
+const managerRoutes = require("./routes/manager");
+
 const MONGODB_URI =
   "mongodb+srv://nodejs:nodejs12345@cluster0.wyrbn.mongodb.net/Staffs";
+
+const PORT = 3001;
 
 const app = express();
 
@@ -49,9 +55,6 @@ const fileFilter = (req, file, cb) => {
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const staffRoutes = require("./routes/staff");
-const authRoutes = require("./routes/auth");
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -84,6 +87,7 @@ app.use((req, res, next) => {
         return next();
       }
       req.staff = staff;
+      res.locals.role = staff.role;
       next();
     })
     .catch((err) => console.log(err));
@@ -92,10 +96,12 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
+
   next();
 });
 
 app.use(authRoutes);
+app.use(managerRoutes);
 app.use(staffRoutes);
 app.use(errorController.get404);
 
@@ -128,7 +134,7 @@ mongoose
         staff.save();
       }
     });
-    app.listen(3001);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
