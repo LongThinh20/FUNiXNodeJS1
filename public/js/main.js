@@ -17,13 +17,21 @@ function checkCovid() {}
 backdrop.addEventListener("click", backdropClickHandler);
 menuToggle.addEventListener("click", menuToggleClickHandler);
 
-//  handle submit form select month 'reference view'
-// if ($(".form-select-month")) {
-//   $(".select-month").on("change", function () {
-//     $(".form-select-month").submit();
-//   });
-// }
+//  handle submit form choose month for salary''
+if ($(".form-select-month")) {
+  $(".select-month").on("change", function () {
+    $(".form-select-month").submit();
+  });
+}
 
+//  handle submit form per page pagination''
+if ($(".form-select-pageSize")) {
+  $(".select-pageSize").on("change", function () {
+    $(".form-select-pageSize").submit();
+  });
+}
+
+//picker date custom
 $(".dateeee").datepicker({
   multidate: true,
   format: "dd-mm-yyyy"

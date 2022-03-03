@@ -47,5 +47,8 @@ router.get("/staffInfo", isAuth, staffController.getStaffInfo);
 
 router.post("/staffInfo", isAuth, staffController.postUpdateAvatar);
 //
+router.get("/pagination", isAuth, workTimeAndSalaryController.getPagination);
+
+router.post("/pagination", isAuth, workTimeAndSalaryController.postPagination);
 
 module.exports = router;

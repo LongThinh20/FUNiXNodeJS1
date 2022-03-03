@@ -243,6 +243,7 @@ img {
 td,
 th {
   text-align: center;
+  font-size: 15px;
 }
 .btn_info {
   background-color: white;
@@ -331,6 +332,25 @@ footer {
   background: rgba(255, 176, 176, 0.418);
   color: red;
 }
+.pagination {
+  margin: 0 auto;
+  text-align: center;
+  width: 15%;
+}
+.pagination a {
+  text-decoration: none;
+  color: #00695c;
+  padding: 0.5rem;
+  border: 1px solid #00695c;
+  margin: 0 1rem;
+}
+.pagination a:hover,
+.pagination a:active,
+.pagination a.active {
+  background: #00695c;
+  color: white;
+}
+
 /**/
 
 @media (min-width: 768px) {

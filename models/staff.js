@@ -34,6 +34,12 @@ const staffSchema = new Schema({
     type: String,
     required: true
   },
+  isConfirm: [
+    {
+      confirmed: { type: Boolean },
+      month: { type: Number }
+    }
+  ],
   workTime: [
     {
       workSpace: {

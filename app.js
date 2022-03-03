@@ -121,6 +121,7 @@ mongoose
           startDate: new Date(2022, 02, 02),
           department: "IT",
           annualLeave: 8,
+          isConfirm: [],
           workTime: [],
           offTime: [],
           covidInfo: {

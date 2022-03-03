@@ -1,11 +1,11 @@
 <%- include('../includes/head.ejs') %>
     <%- include('../includes/navigation.ejs') %>
         <main class="container">
-            <h2>THÔNG TIN GIỜ LÀM && LƯƠNG </h2>
+            <h3>THÔNG TIN GIỜ LÀM && LƯƠNG </h3>
             <br>
-            <h3 class="text-title">Danh sách giờ làm</h3>
+            <h4 class="text-title">Danh sách giờ làm</h4>
             <% if(workTimes.length> 0 ){ %>
-                <table class="table styleBox">
+                <table class="table styleBox listWorkTime">
                     <thead>
                         <tr>
                             <th>Ngày</th>
@@ -39,6 +39,43 @@
                             <% } %>
                     </tbody>
                 </table>
+                <section class="pagination">
+                    <% if(currentPage !==1 && previousPage !==1) {%>
+                        <a href="?page=1">1</a>
+                        <% } %>
+
+                            <% if(hasPreviousPage){ %>
+                                <a href="?page=<%= previousPage %> ">
+                                    <%= previousPage %>
+                                </a>
+                                <% } %>
+                                    <a href="?page=<%= currentPage %> " class="active">
+                                        <%= currentPage %>
+                                    </a>
+                                    <% if(hasNextPage) {%>
+                                        <a href="?page=<%= nextPage %> ">
+                                            <%= nextPage %>
+                                        </a>
+                                        <% } %>
+                                            <% if(lastPage !==currentPage && nextPage !==lastPage){ %>
+                                                <a href="?page=<%= lastPage %> ">
+                                                    <%= lastPage %>
+                                                </a>
+                                                <% } %>
+
+                </section>
+                <div>
+                    <form class="form-group form-select-pageSize" action="/pagination" method="post">
+                        <label for="sel1">Chọn số dòng muốn hiển thị:</label>
+                        <select class="form-control select-pageSize mb-4" id="pageSize" name="pageSize">
+                            <option value="0">--Chọn số dòng--</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                        </select>
+                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                    </form>
+                </div>
                 <% } else {%>
                     <h5 class="pl-2 font-italic text-warning">Chưa có dữ liệu ...</h5>
                     <% } %>
@@ -47,8 +84,10 @@
                                 <%= totalTime %> (giờ)
                             </span>
                         </p>
+
+
                         <br>
-                        <h3 class="text-title">Danh sách đăng ký nghỉ phép </h3>
+                        <h4 class="text-title">Danh sách đăng ký nghỉ phép </h4>
                         <% if(offTimes.length> 0){ %>
                             <table class="table styleBox">
                                 <thead>
@@ -79,10 +118,10 @@
                                 <h5 class="pl-2 font-italic text-warning">Chưa có dữ liệu ...</h5>
                                 <% } %>
                                     <br>
-                                    <h3 class="text-title">Chi tiết Lương</h3>
+                                    <h4 class="text-title">Chi tiết Lương</h4>
                                     <form class="form-group form-select-month" action="/workTime" method="POST">
                                         <select class="form-control select-month" name="month" id="month">
-                                            <option value="0">-- Chọn tháng muốn xem --</option>
+                                            <option value="">-- Chọn tháng muốn xem --</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -98,10 +137,10 @@
                                         </select>
                                         <br>
                                         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                                        <button type="submit" class="btn btn_info">Xem</button>
+
                                     </form>
-                                    <input value="<%= salary !== 0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ,") : 0
-                                        %>
-                                    ">
+                                    <p>
+                                        <%= salary !==0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ," ) : '' %> VND
+                                    </p>
         </main>
         <%- include('../includes/end.ejs') %>
