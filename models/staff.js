@@ -8,7 +8,7 @@ const staffSchema = new Schema({
     required: true
   },
   doB: {
-    type: String,
+    type: Date,
     required: true
   },
   salaryScale: {
@@ -16,7 +16,7 @@ const staffSchema = new Schema({
     required: true
   },
   startDate: {
-    type: String,
+    type: Date,
     required: true
   },
   department: {
@@ -105,19 +105,22 @@ staffSchema.methods.addWorkTime = function (startWorkTime) {
 
 staffSchema.methods.updateWorkTime = function (endTime) {
   const lastWorkTime = this.workTime[this.workTime.length - 1];
+  if (lastWorkTime.endTime === null) {
+    lastWorkTime.endTime = endTime;
+    let end = moment(lastWorkTime.endTime);
+    let start = moment(lastWorkTime.startTime);
+    let duration = moment.duration(end.diff(start));
+    let times = duration.asHours();
 
-  lastWorkTime.endTime = endTime;
+    if (times > 8) {
+      lastWorkTime.overTime = times - 8;
+    }
+    lastWorkTime.total = times;
 
-  let end = moment(lastWorkTime.endTime);
-  let start = moment(lastWorkTime.startTime);
-  let duration = moment.duration(end.diff(start));
-  let times = duration.asHours();
+    this.workTime[this.workTime.length - 1] = lastWorkTime;
 
-  if (times > 8) {
-    lastWorkTime.overTime = times - 8;
+    return this.save();
   }
-  lastWorkTime.total = times;
-
   return this.save();
 };
 
@@ -126,9 +129,6 @@ staffSchema.methods.updateVaccineInfo = function (vaccine1, vaccine2) {
   updateVaccinInfo.push(vaccine1);
   updateVaccinInfo.push(vaccine2);
   this.covidInfo.vaccineInfo = updateVaccinInfo;
-
-  console.log(this.covidInfo.vaccineInfo);
-
   return this.save();
 };
 

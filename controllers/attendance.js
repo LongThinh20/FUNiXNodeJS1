@@ -1,10 +1,11 @@
 const moment = require("moment");
 const Methods = require("../utils/methods");
 
+//GET /registerWork
 exports.getWorkTimesList = (req, res, next) => {
   const workTimes = req.staff.workTime;
   const offTimes = req.staff.offTime;
-  res.render("staff/work", {
+  res.render("staff/workPage", {
     path: "/adttendance",
     pageTitle: "Work Page",
     staffInfo: req.staff,
@@ -15,6 +16,7 @@ exports.getWorkTimesList = (req, res, next) => {
   });
 };
 
+//POST /registerWork
 exports.postStartWorkTime = (req, res, next) => {
   const workTime = {
     workSpace: req.body.workSpace,

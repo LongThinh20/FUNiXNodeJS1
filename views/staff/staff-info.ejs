@@ -1,14 +1,14 @@
 <%- include('../includes/head.ejs') %>
     <%- include('../includes/navigation.ejs') %>
         <main class="container">
-            <form action="/infomation" method="post">
+            <form action="/staffInfo" method="post">
                 <h2>THÔNG TIN CÁ NHÂN </h2>
                 <br>
                 <div class="row ">
                     <div class="col-sm-12 col-md-4">
                         <img src="<%= staffInfo.image %> ">
-                        <input type="text" value="<%= staffInfo.image %>" class="form-control" name="avatar"
-                            placeholder="điền đường dẫn ảnh ...">
+                        <input type="text" value="<%= staffInfo.image %>" class="form-control" name="image"
+                            placeholder="điền đường dẫn ảnh ..." required>
                         <br>
                         <button class="btn btn_info w-100" type="submit">Cập nhật ảnh</button>
                     </div>
@@ -31,13 +31,17 @@
                                     <%= staffInfo.name %>
                                 </p>
                                 <p class="font-italic text-secondary font-weight-normal ">
-                                    <%= staffInfo.doB %>
+                                    <%= staffInfo.doB.getDate() %>
+                                        - <%= staffInfo.doB.getMonth() %>
+                                            - <%= staffInfo.doB.getFullYear() %>
                                 </p>
                                 <p class="font-italic text-secondary font-weight-normal ">
                                     <%= staffInfo.salaryScale %>
                                 </p>
                                 <p class="font-italic text-secondary font-weight-normal ">
-                                    <%= staffInfo.startDate %>
+                                    <%= staffInfo.startDate.getDate() %>
+                                        - <%= staffInfo.startDate.getMonth() %>
+                                            - <%= staffInfo.startDate.getFullYear() %>
                                 </p>
                                 <p class="font-italic text-secondary font-weight-normal ">
                                     <%= staffInfo.department %>

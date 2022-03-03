@@ -1,41 +1,45 @@
 <div class="backdrop"></div>
-<header class="main-header  justify-content-center <%= isWork ? 'isAttendance' :'' %>  ">
-    <button id="side-menu-toggle" class="<%= isWork ? 'isNone' :'' %>">Menu</button>
+<header class="main-header  justify-content-center <%= isWork ? 'isAttendance' :'' %>">
+    <button id="side-menu-toggle">Menu</button>
     <nav class="main-header__nav   ">
-        <ul class="main-header__item-list ">
-            <li class="main-header__item <%= isWork ? 'isNone' :'' %>">
-                <a href="/" class="<%= path ==='/home'?'active' : ''%> ">TRANG CHỦ</a>
-            </li>
-            <li class="main-header__item <%= isWork ? 'isNone' :'' %>">
-                <a href="/registerWork" class="<%= path ==='/adttendance'?'active' : ''%> ">ĐIỂM DANH</a>
-            </li>
-            <li class="main-header__item <%= isWork ? 'isNone' :'' %>">
-                <a href="/workTime" class="<%= path ==='/workTimeAndSalary'?'active' : ''%> ">GIỜ LÀM/LƯƠNG</a>
-            </li>
-            <li class="main-header__item <%= isWork ? 'isNone' :'' %>">
-                <a href="/staffInfo" class="<%= path ==='/staffInfo'?'active' : ''%> ">THÔNG TIN CÁ NHÂN</a>
-            </li>
-            <li class="main-header__item <%= isWork ? 'isNone' :'' %>">
-                <a href="/covid" class="<%= path ==='/covid'?'active' : ''%> ">COVID
-                </a>
-            </li>
-        </ul>
+        <% if(!isWork) {%>
+            <ul class="main-header__item-list ">
+                <li class="main-header__item ">
+                    <a href="/" class="<%= path ==='/home'?'active' : ''%> ">TRANG CHỦ</a>
+                </li>
+                <li class="main-header__item ">
+                    <a href="/registerWork" class="<%= path ==='/adttendance'?'active' : ''%> ">ĐIỂM DANH</a>
+                </li>
+                <li class="main-header__item ">
+                    <a href="/workTime" class="<%= path ==='/workTimeAndSalary'?'active' : ''%> ">GIỜ LÀM/LƯƠNG</a>
+                </li>
+                <li class="main-header__item ">
+                    <a href="/staffInfo" class="<%= path ==='/staffInfo'?'active' : ''%> ">THÔNG TIN CÁ NHÂN</a>
+                </li>
+                <li class="main-header__item ">
+                    <a href="/covid" class="<%= path ==='/covid'?'active' : ''%> ">COVID
+                    </a>
+                </li>
+            </ul>
+            <% } %>
     </nav>
 </header>
 
-<nav class="mobile-nav <%= isWork ? 'isNone' :'' %>s">
-    <ul class="mobile-nav__item-list">
-        <li class="mobile-nav__item">
-            <a href="/registerWork" class="<%= path ==='/adttendance'?'active' : ''%> ">ĐIỂM DANH</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a href="/workTime" class="<%= path ==='/workTimeAndSalary'?'active' : ''%> ">GIỜ LÀM/LƯƠNG</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a href="/staffInfo" class="<%= path ==='/staffInfo'?'active' : ''%> ">THÔNG TIN CÁ NHÂN</a>
-        </li>
-        <li class="mobile-nav__item">
-            <a href="/covid" class="<%= path ==='/covid'?'active' : ''%> ">COVID</a>
-        </li>
-    </ul>
+<nav class="mobile-nav ">
+    <% if(!isWork) {%>
+        <ul class="mobile-nav__item-list">
+            <li class="mobile-nav__item">
+                <a href="/registerWork" class="<%= path ==='/adttendance'?'active' : ''%> ">ĐIỂM DANH</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="/workTime" class="<%= path ==='/workTimeAndSalary'?'active' : ''%> ">GIỜ LÀM/LƯƠNG</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="/staffInfo" class="<%= path ==='/staffInfo'?'active' : ''%> ">THÔNG TIN CÁ NHÂN</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="/covid" class="<%= path ==='/covid'?'active' : ''%> ">COVID</a>
+            </li>
+        </ul>
+        <% } %>
 </nav>

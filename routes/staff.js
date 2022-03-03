@@ -10,6 +10,7 @@ const HomeController = require("../controllers/home");
 const router = express.Router();
 
 router.get("/", HomeController.getIndex);
+
 router.get("/registerWork", attendanceController.getWorkTimesList);
 
 router.post("/registerWork", attendanceController.postStartWorkTime);

@@ -34,7 +34,7 @@
                                         : ' Khách Hàng' %>
                                 </td>
                                 <td>
-                                    <%= time.overTime %>
+                                    <%= time.overTime.toFixed(1) %>
                                 </td>
                             </tr>
                             <% } %>
@@ -109,8 +109,8 @@
                                         <br>
                                         <button type="submit" class="btn btn_info">Xem</button>
                                     </form>
-                                    <input value="<%= salary !== 0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ,") : 0
-                                        %>
+                                    <input value="<%= salary !== 0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ,")
+                                        + ' VND' : 0 %>
                                     ">
         </main>
         <%- include('../includes/end.ejs') %>

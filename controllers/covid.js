@@ -20,7 +20,9 @@ exports.postVaccineInfo = (req, res, next) => {
     .updateVaccineInfo(vaccine1, vaccine2)
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        path: "/covid",
+        pageTitle: "Resister Covid Infomation",
+        isWork: false
       });
     })
     .catch((err) => console.log(err));
@@ -36,7 +38,9 @@ exports.postInfectedInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        path: "/covid",
+        pageTitle: "Resister Covid Infomation",
+        isWork: false
       });
     })
     .catch((err) => console.log(err));
@@ -52,7 +56,9 @@ exports.postTemperatureInfo = (req, res, next) => {
     .save()
     .then(() => {
       res.render("staff/covid-info", {
-        pageTitle: "Resister Covid Infomation"
+        path: "/covid",
+        pageTitle: "Resister Covid Infomation",
+        isWork: false
       });
     })
     .catch((err) => console.log(err));

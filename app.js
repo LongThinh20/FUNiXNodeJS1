@@ -1,5 +1,4 @@
 const path = require("path");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -18,17 +17,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  Staff.findById("620fc4638fec4a6b2dacd222")
+  Staff.findById("62215f793b0f6cdff8ff1053")
     .then((staff) => {
       req.staff = staff;
       next();
     })
     .catch((err) => console.log(err));
 });
-
 app.use(staffRoutes);
 app.use(errorController.get404);
 
+//connect to db
 mongoose
   .connect(
     "mongodb+srv://studynodejs:nodejs12345@cluster0.nxkbx.mongodb.net/Staff?retryWrites=true&w=majority"
@@ -38,9 +37,9 @@ mongoose
       if (!staff) {
         const staff = new Staff({
           name: "Nguyên Văn A",
-          doB: "20-2-1994",
+          doB: new Date(1994, 02, 20),
           salaryScale: 1.5,
-          startDate: "1-11-2021",
+          startDate: new Date(2022, 02, 02),
           department: "IT",
           annualLeave: 8,
           workTime: [],
