@@ -13,11 +13,16 @@ router.post(
   isAuth,
   staffManageController.postStaffDetail
 );
-
 router.post(
   "/manager/deleteWorkTime",
   isAuth,
   staffManageController.deleteWorkTime
+);
+
+router.post(
+  "/manager/isConfirm",
+  isAuth,
+  staffManageController.postIsConfirmed
 );
 
 module.exports = router;

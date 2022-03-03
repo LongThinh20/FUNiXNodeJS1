@@ -13,7 +13,7 @@ exports.postLogin = (req, res, next) => {
   const user = req.body.user;
   const password = req.body.password;
 
-  Staff.findOne({ user: user })
+  Staff.findOne({ user: user, password: password })
     .then((staff) => {
       if (!staff) {
         return res.render("auth/login", {

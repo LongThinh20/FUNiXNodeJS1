@@ -18,8 +18,6 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.postStaffDetail = (req, res, next) => {
-  // console.log("month", req.body.month);
-
   Staff.findById(req.body.staffId.trim())
     .then((staff) => {
       return res.render("manager/staffManager", {
@@ -28,7 +26,8 @@ exports.postStaffDetail = (req, res, next) => {
         isWork: false,
         totalTime: Methods.getTotalTime(staff.workTime),
         staff,
-        moment
+        moment,
+        errorMessage: null
       });
     })
     .catch((err) => console.log(err));
@@ -57,4 +56,40 @@ exports.deleteWorkTime = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+exports.postIsConfirmed = (req, res, next) => {
+  Staff.findById(req.body.staffId.trim())
+    .then((staff) => {
+      const item = {
+        confirmed: true,
+        month: req.body.month
+      };
+
+      if (staff.isConfirm.length > 0) {
+        staff.isConfirm.forEach((isConfirm) => {
+          if (isConfirm.month.toString() === item.month) {
+            return res.render("manager/staffManager", {
+              pageTitle: "Quản lý nhân viên",
+              path: "/manager",
+              isWork: false,
+              totalTime: Methods.getTotalTime(staff.workTime),
+              staff,
+              moment,
+              errorMessage: "Tháng đã xác nhận , hãy chọn tháng khác !!"
+            });
+          }
+        });
+      }
+      staff.isConfirm.push(item);
+
+      staff.save();
+    })
+    .then((result) => {
+      console.log("POST ISCONFIRM !!!");
+      return res.redirect("/manager");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

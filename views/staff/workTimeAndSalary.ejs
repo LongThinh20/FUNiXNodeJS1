@@ -140,7 +140,8 @@
 
                                     </form>
                                     <p>
-                                        <%= salary !==0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ," ) : '' %> VND
+                                        <%= salary !==0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ," ) + ' VND' : ''
+                                            %>
                                     </p>
         </main>
         <%- include('../includes/end.ejs') %>

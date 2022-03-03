@@ -58,30 +58,35 @@
                                     <%= totalTime %> (giờ)
                                 </span>
                             </p>
-                            <form action="/manager/comfirmWorkTime" method="post">
-                                <h4 class="text-title mt-4">Xác nhận tháng đã làm</h4>
-                                <button class='btn btn-outline-info mt-2' type="submit">XÁC NHẬN</button>
-                                <input type="hidden" value="<%= staff._id%> ">
-                                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                                <div class="form-group">
-                                    <label for="month" class="text-secondary font-italic ml-2">Chọn tháng</label>
-                                    <select class="form-control" name="month" id="month">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                </div>
+                            <form action="/manager/isConfirm" method="post">
+                                <% if(errorMessage){ %>
+                                    <div class="user-message user-message--error">
+                                        <%= errorMessage %>
+                                    </div>
+                                    <% } %>
+                                        <h4 class="text-title mt-4">Xác nhận tháng đã làm</h4>
+                                        <button class='btn btn-outline-info mt-2' type="submit">XÁC NHẬN</button>
+                                        <input type="hidden" name="staffId" value="<%= staff._id%> ">
+                                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                                        <div class="form-group">
+                                            <label for="month" class="text-secondary font-italic ml-2">Chọn
+                                                tháng</label>
+                                            <select class="form-control" name="month" id="month">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </div>
                             </form>
-
             </div>
 
 
