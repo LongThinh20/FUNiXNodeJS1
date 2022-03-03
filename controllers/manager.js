@@ -52,7 +52,8 @@ exports.deleteWorkTime = (req, res, next) => {
         isWork: false,
         totalTime: Methods.getTotalTime(result.workTime),
         staff: result,
-        moment
+        moment,
+        errorMessage: null
       });
     })
     .catch((err) => console.log(err));

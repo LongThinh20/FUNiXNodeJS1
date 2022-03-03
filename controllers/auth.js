@@ -5,13 +5,14 @@ exports.getLogin = (req, res, next) => {
     path: "/login",
     pageTitle: "Đăng nhập",
     isWork: false,
-    errorMessage: null
+    errorMessage: null,
+    oldInput: { user: "", password: "" }
   });
 };
 
 exports.postLogin = (req, res, next) => {
-  const user = req.body.user;
-  const password = req.body.password;
+  const user = req.body.user.trim();
+  const password = req.body.password.trim();
 
   Staff.findOne({ user: user, password: password })
     .then((staff) => {
@@ -21,7 +22,8 @@ exports.postLogin = (req, res, next) => {
           pageTitle: "Login",
           pageTitle: "Đăng nhập",
           isWork: false,
-          errorMessage: "Tên đăng nhập hoặc mật khẩu sai"
+          errorMessage: "Tên đăng nhập hoặc mật khẩu sai",
+          oldInput: { user: user, password: password }
         });
       }
 
