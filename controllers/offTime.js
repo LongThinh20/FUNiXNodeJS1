@@ -9,7 +9,7 @@ exports.postTimeOff = (req, res, next) => {
     .addOffTime(offTimes)
     .then(() => {
       console.log("POST OFF TIME");
-      res.redirect("/register-work");
+      res.redirect("/registerWork");
     })
     .catch((err) => console.log(err));
 };

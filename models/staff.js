@@ -43,9 +43,7 @@ const staffSchema = new Schema({
       },
       endTime: {
         type: Date
-      },
-      total: Number,
-      overTime: Number
+      }
     }
   ],
   offTime: [
@@ -107,15 +105,6 @@ staffSchema.methods.updateWorkTime = function (endTime) {
   const lastWorkTime = this.workTime[this.workTime.length - 1];
   if (lastWorkTime.endTime === null) {
     lastWorkTime.endTime = endTime;
-    let end = moment(lastWorkTime.endTime);
-    let start = moment(lastWorkTime.startTime);
-    let duration = moment.duration(end.diff(start));
-    let times = duration.asHours();
-
-    if (times > 8) {
-      lastWorkTime.overTime = times - 8;
-    }
-    lastWorkTime.total = times;
 
     this.workTime[this.workTime.length - 1] = lastWorkTime;
 

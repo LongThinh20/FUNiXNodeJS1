@@ -34,7 +34,10 @@
                                         : ' Khách Hàng' %>
                                 </td>
                                 <td>
-                                    <%= time.overTime.toFixed(1) %>
+                                    <% const hoursEnd=time.endTime.getHours(); const
+                                        hoursStart=time.startTime.getHours(); const totalTimeWork=(hoursEnd* 60
+                                        +time.endTime.getMinutes()) - (hoursStart*60 + time.startTime.getMinutes()); %>
+                                        <%= totalTimeWork/60 - 8 < 0 ? 0 : (totalTimeWork/60 - 8).toFixed(2) %>
                                 </td>
                             </tr>
                             <% } %>
@@ -48,7 +51,7 @@
                     <% } %>
                         <p class="pl-5"><span class="font-italic text-secondary">Tổng giờ đã làm :</span>
                             <span class="font-weight-bold">
-                                <%= totalTime %> (giờ)
+                                <%= totalTime.toFixed(2) %> (giờ)
                             </span>
                         </p>
 
