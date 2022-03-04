@@ -3,68 +3,91 @@ const Methods = require("../utils/methods");
 
 //GET /registerWork
 exports.getWorkTimesList = (req, res, next) => {
-  const currentMonth = new Date().getMonth();
-  let isConfirmed = false;
-  if (req.staff.isConfirm.length > 0) {
-    req.staff.isConfirm.forEach((staff) => {
-      if (staff.month === currentMonth) {
-        isConfirmed = true;
-      }
+  try {
+    const currentMonth = new Date().getMonth();
+    let isConfirmed = false;
+    if (req.staff.isConfirm.length > 0) {
+      req.staff.isConfirm.forEach((staff) => {
+        if (staff.month === currentMonth) {
+          isConfirmed = true;
+        }
+      });
+    }
+    res.render("staff/workPage", {
+      path: "/adttendance",
+      pageTitle: "Đăng kí làm việc",
+      staffInfo: req.staff,
+      isWork: false,
+      workTimes: Methods.getTotalTimeLastDate(req.staff),
+      totalTime: Methods.getTotalTimeLastDate(req.staff),
+      moment,
+      isConfirmed
     });
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
-
-  res.render("staff/workPage", {
-    path: "/adttendance",
-    pageTitle: "Đăng kí làm việc",
-    staffInfo: req.staff,
-    isWork: false,
-    workTimes: Methods.getTotalTimeLastDate(req.staff),
-    totalTime: Methods.getTotalTimeLastDate(req.staff),
-    moment,
-    isConfirmed
-  });
 };
 
 //POST /registerWork
 exports.postStartWorkTime = (req, res, next) => {
-  const workTime = {
-    workSpace: req.body.workSpace,
-    startTime: new Date(),
-    endTime: null,
-    total: 0,
-    overTime: 0
-  };
+  try {
+    const workTime = {
+      workSpace: req.body.workSpace,
+      startTime: new Date(),
+      endTime: null,
+      total: 0,
+      overTime: 0
+    };
 
-  req.staff
-    .addWorkTime(workTime)
-    .then(() => {
-      res.redirect("/attendance");
-      console.log("START WORK TIME!!");
-    })
-    .catch((err) => console.log(err));
+    req.staff
+      .addWorkTime(workTime)
+      .then(() => {
+        res.redirect("/attendance");
+        console.log("START WORK TIME!!");
+      })
+      .catch((err) => console.log(err));
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };
 
 //GET - /attendance
 exports.getStartWorkTime = (req, res, next) => {
-  const workTime = req.staff.workTime;
-  res.render("staff/attendance", {
-    pageTitle: "Điểm danh",
-    path: "/adttendance",
-    workTime: workTime[workTime.length - 1],
-    staffName: req.staff.name,
-    isWork: true,
-    moment
-  });
+  try {
+    const workTime = req.staff.workTime;
+    res.render("staff/attendance", {
+      pageTitle: "Điểm danh",
+      path: "/adttendance",
+      workTime: workTime[workTime.length - 1],
+      staffName: req.staff.name,
+      isWork: true,
+      moment
+    });
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };
 
 // POST - /attendance
 exports.postEndWorkTime = (req, res, next) => {
-  const endTime = new Date();
-  req.staff
-    .updateWorkTime(endTime)
-    .then(() => {
-      console.log("POST END WORKTIME");
-      res.redirect("/registerWork");
-    })
-    .catch((err) => console.log(err));
+  try {
+    const endTime = new Date();
+    req.staff
+      .updateWorkTime(endTime)
+      .then(() => {
+        console.log("POST END WORKTIME");
+        res.redirect("/registerWork");
+      })
+      .catch((err) => console.log(err));
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };

@@ -40,6 +40,7 @@ const fileStorage = multer.diskStorage({
     );
   }
 });
+
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/png" ||
@@ -104,6 +105,13 @@ app.use(authRoutes);
 app.use(managerRoutes);
 app.use(staffRoutes);
 app.use(errorController.get404);
+app.use((error, req, res, next) => {
+  res.status(500).render("500", {
+    pageTitle: "Lỗi !!",
+    path: "/500",
+    isWork: false
+  });
+});
 
 //connect to db
 mongoose
