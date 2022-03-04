@@ -1,3 +1,4 @@
+//GET  /covid
 exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
     path: "/covid",
@@ -6,6 +7,7 @@ exports.getCovid = (req, res, next) => {
   });
 };
 
+//POST /vaccine
 exports.postVaccineInfo = (req, res, next) => {
   const { nameVaccine1, nameVaccine2, dateVaccine1, dateVaccine2 } = req.body;
   const vaccine1 = {
@@ -28,6 +30,7 @@ exports.postVaccineInfo = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+//POST /infected
 exports.postInfectedInfo = (req, res, next) => {
   const { infectedDate, cureDate } = req.body;
   req.staff.covidInfo.infectedInfo = {
@@ -46,6 +49,7 @@ exports.postInfectedInfo = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+//POST /temperature
 exports.postTemperatureInfo = (req, res, next) => {
   const { temperature, timeTemperature } = req.body;
   req.staff.covidInfo.temperatureInfo = {

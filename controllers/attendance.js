@@ -35,7 +35,7 @@ exports.postStartWorkTime = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-//GET - /attendance
+//GET  /attendance
 exports.getStartWorkTime = (req, res, next) => {
   const workTime = req.staff.workTime;
   res.render("staff/attendance", {

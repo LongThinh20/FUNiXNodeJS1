@@ -2,8 +2,7 @@ const moment = require("moment");
 
 class Methods {
   //get total time work
-
-  getTest = (startTime, endTime) => {
+  getTotalWorkTime = (startTime, endTime) => {
     let end = moment(endTime);
     let start = moment(startTime);
     let duration = moment.duration(end.diff(start));
@@ -36,7 +35,7 @@ class Methods {
     //get over Time && short Time
     workTimes.forEach((work) => {
       if (work.endTime.getMonth() + 1 === Number(month)) {
-        let total = this.getTest(work.startTime, work.endTime);
+        let total = this.getTotalWorkTime(work.startTime, work.endTime);
         if (total > 8) {
           overTime += total - 8;
         }
@@ -60,10 +59,8 @@ class Methods {
         (overTime - shortTime) * 200000
       ).toFixed(0);
     }
-
     return salary;
   };
-
   getTotalTimeLastDate = (workTimes, offTimes) => {
     const today = new Date();
     let totalTime = 0;
@@ -98,7 +95,7 @@ class Methods {
       );
       if (workTimesToday.length > 0) {
         workTimesToday.forEach((t) => {
-          let total = this.getTest(t.startTime, t.endTime);
+          let total = this.getTotalWorkTime(t.startTime, t.endTime);
 
           totalTime += total;
         });
@@ -115,11 +112,11 @@ class Methods {
     return { totalTime, workTimesToday };
   };
 
-  getTotalTime = (workTime) => {
+  getTotalTimes = (workTime) => {
     let totalTime = 0;
     if (workTime.length) {
       workTime.forEach((t) => {
-        let total = this.getTest(t.startTime, t.endTime);
+        let total = this.getTotalWorkTime(t.startTime, t.endTime);
         totalTime += total;
       });
     }

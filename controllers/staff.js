@@ -1,5 +1,6 @@
 const moment = require("moment");
 
+//GET /staffInfo
 exports.getStaffInfo = (req, res, next) => {
   const staffInfo = req.staff;
   res.render("staff/staff-info", {
@@ -11,6 +12,7 @@ exports.getStaffInfo = (req, res, next) => {
   });
 };
 
+//POST /staffInfo
 exports.postUpdateAvatar = (req, res, next) => {
   req.staff.image = req.body.image;
   req.staff

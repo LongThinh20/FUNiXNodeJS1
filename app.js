@@ -13,6 +13,9 @@ app.set("views", "views");
 
 const staffRoutes = require("./routes/staff");
 
+const PORT = 3001;
+
+// Parse body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -55,7 +58,7 @@ mongoose
         staff.save();
       }
     });
-    app.listen(3001);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
