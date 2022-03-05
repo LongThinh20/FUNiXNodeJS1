@@ -5,7 +5,7 @@ exports.getStaffInfo = (req, res, next) => {
   const staffInfo = req.staff;
   res.render("staff/staff-info", {
     path: "/staffInfo",
-    pageTitle: "Staff Information",
+    pageTitle: "THÔNG TIN NHÂN VIÊN",
     staffInfo: staffInfo,
     isWork: false,
     moment

@@ -1,11 +1,11 @@
 <%- include('../includes/head.ejs') %>
     <%- include('../includes/navigation.ejs') %>
         <main class="container">
-            <h2>THÔNG TIN GIỜ LÀM && LƯƠNG </h2>
+            <h3>THÔNG TIN GIỜ LÀM && LƯƠNG </h3>
             <br>
-            <h3 class="text-title">Danh sách giờ làm</h3>
+            <h4 class="text-title">Danh sách giờ làm</h4>
             <% if(workTimes.length> 0 ){ %>
-                <table class="table styleBox">
+                <table class="table styleBox styleBox-with ">
                     <thead>
                         <tr>
                             <th>Ngày</th>
@@ -41,25 +41,20 @@
                                 </td>
                             </tr>
                             <% } %>
-
-
-
                     </tbody>
                 </table>
                 <% } else {%>
                     <h5 class="pl-2 font-italic text-warning">Chưa có dữ liệu ...</h5>
                     <% } %>
-                        <p class="pl-5"><span class="font-italic text-secondary">Tổng giờ đã làm :</span>
+                        <p class="pl-5 mt-4"><span class="font-italic text-secondary">Tổng giờ đã làm :</span>
                             <span class="font-weight-bold">
                                 <%= totalTime.toFixed(2) %> (giờ)
                             </span>
                         </p>
-
-
                         <br>
-                        <h3 class="text-title">Danh sách đăng ký nghỉ phép </h3>
+                        <h4 class="text-title">Danh sách đăng ký nghỉ phép </h4>
                         <% if(offTimes.length> 0){ %>
-                            <table class="table styleBox">
+                            <table class="table styleBox styleBox-with ">
                                 <thead>
                                     <tr>
                                         <th>Ngày</th>
@@ -95,7 +90,7 @@
                                     <h3 class="text-title">Chi tiết Lương</h3>
                                     <form class="form-group form-select-month" action="/workTime" method="POST">
                                         <select class="form-control select-month" name="month" id="month">
-                                            <option value="0">-- Chọn tháng muốn xem --</option>
+                                            <option value="">-- Chọn tháng muốn xem --</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -112,8 +107,9 @@
                                         <br>
                                         <button type="submit" class="btn btn_info">Xem</button>
                                     </form>
-                                    <input value="<%= salary !== 0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ,")
-                                        + ' VND' : 0 %>
+                                    <input class="salaryInput"
+                                        value=" <%=salary !==0 ? salary.replace(/\B(?=(\d{3})+(?!\d))/g, " ," ) + ' VND'
+                                        : 0 %>
                                     ">
         </main>
         <%- include('../includes/end.ejs') %>

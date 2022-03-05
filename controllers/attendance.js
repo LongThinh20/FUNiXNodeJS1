@@ -3,15 +3,13 @@ const Methods = require("../utils/methods");
 
 //GET /registerWork
 exports.getWorkTimesList = (req, res, next) => {
-  const workTimes = req.staff.workTime;
-  const offTimes = req.staff.offTime;
   res.render("staff/workPage", {
     path: "/adttendance",
-    pageTitle: "Work Page",
+    pageTitle: "ĐĂNG KÍ LÀM VIỆC",
     staffInfo: req.staff,
     isWork: false,
-    workTimes: Methods.getTotalTimeLastDate(workTimes, offTimes),
-    totalTime: Methods.getTotalTimeLastDate(workTimes, offTimes),
+    workTimes: req.staff.workTime,
+    totalTime: Methods.getTotalTimes(req.staff.workTime),
     moment
   });
 };
@@ -39,7 +37,7 @@ exports.postStartWorkTime = (req, res, next) => {
 exports.getStartWorkTime = (req, res, next) => {
   const workTime = req.staff.workTime;
   res.render("staff/attendance", {
-    pageTitle: "Attendance Page ",
+    pageTitle: "ĐIỂM DANH",
     path: "/adttendance",
     workTime: workTime[workTime.length - 1],
     staffName: req.staff.name,

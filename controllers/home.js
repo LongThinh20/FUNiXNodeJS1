@@ -1,7 +1,7 @@
 //GET /
 exports.getIndex = (req, res, next) => {
   res.render("staff/home", {
-    pageTitle: "Home",
+    pageTitle: "TRANG CHỦ",
     path: "/home",
     isWork: false
   });

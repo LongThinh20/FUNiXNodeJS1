@@ -2,7 +2,7 @@
 exports.getCovid = (req, res, next) => {
   res.render("staff/covid-info", {
     path: "/covid",
-    pageTitle: "Resister Covid Infomation",
+    pageTitle: "ĐĂNG KÍ THÔNG TIN COVID",
     isWork: false
   });
 };
@@ -23,7 +23,7 @@ exports.postVaccineInfo = (req, res, next) => {
     .then(() => {
       res.render("staff/covid-info", {
         path: "/covid",
-        pageTitle: "Resister Covid Infomation",
+        pageTitle: "ĐĂNG KÍ THÔNG TIN COVID",
         isWork: false
       });
     })
@@ -42,7 +42,7 @@ exports.postInfectedInfo = (req, res, next) => {
     .then(() => {
       res.render("staff/covid-info", {
         path: "/covid",
-        pageTitle: "Resister Covid Infomation",
+        pageTitle: "ĐĂNG KÍ THÔNG TIN COVID",
         isWork: false
       });
     })
@@ -61,7 +61,7 @@ exports.postTemperatureInfo = (req, res, next) => {
     .then(() => {
       res.render("staff/covid-info", {
         path: "/covid",
-        pageTitle: "Resister Covid Infomation",
+        pageTitle: "ĐĂNG KÍ THÔNG TIN COVID",
         isWork: false
       });
     })
