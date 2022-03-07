@@ -15,15 +15,16 @@ exports.getWorkTimesList = (req, res, next) => {
     }
     res.render("staff/workPage", {
       path: "/adttendance",
-      pageTitle: "Đăng kí làm việc",
+      pageTitle: "ĐĂNG KÍ LÀM VIỆC",
       staffInfo: req.staff,
       isWork: false,
-      workTimes: Methods.getTotalTimeLastDate(req.staff),
-      totalTime: Methods.getTotalTimeLastDate(req.staff),
+      workTimes: Methods.getTotalTimesOfDay(req.staff.workTime).listWorkTime,
+      totalTime: Methods.getTotalTimesOfDay(req.staff.workTime).totalTime,
       moment,
       isConfirmed
     });
   } catch (err) {
+    console.error(err);
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);

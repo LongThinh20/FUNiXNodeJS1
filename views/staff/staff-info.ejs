@@ -8,7 +8,7 @@
                     <div class="col-sm-12 col-md-4">
                         <img src="<%= staffInfo.image %> ">
                         <input type="file" class="form-control" id="image" name="image"
-                            placeholder="Điền đường dẫn ảnh ...">
+                            placeholder="Điền đường dẫn ảnh ..." required>
                         <br>
                         <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                         <button class="btn btn_info w-100" type="submit">Cập nhật ảnh</button>
@@ -45,7 +45,7 @@
                                     <%= staffInfo.department %>
                                 </p>
                                 <p class="font-italic text-secondary font-weight-normal ">
-                                    <%= staffInfo.annualLeave %>
+                                    <%= staffInfo.annualLeave %> (ngày)
                                 </p>
                             </div>
                         </div>

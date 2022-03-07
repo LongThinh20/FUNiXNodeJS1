@@ -31,11 +31,11 @@
     <h3 class="text-title">Danh sách lượt làm việc trong ngày </h3>
     <p class="ml-5"> <span class="text-secondary font-italic">Số giờ làm :</span>
         <span class="font-weight-bold">
-            <%= totalTime ? totalTime.totalTime : 0 %> ( giờ )
+            <%= totalTime ? totalTime : 0 %> ( giờ )
         </span>
     </p>
-    <% if(workTimes.workTimesToday ){ %>
-        <% for(let time of workTimes.workTimesToday) {%>
+    <% if(workTimes.length>0){ %>
+        <% for(let time of workTimes) {%>
             <div class="card text-left styleBox workToday font-weight-bold ">
                 <div class="card-body">
 

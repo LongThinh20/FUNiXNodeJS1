@@ -7,7 +7,7 @@ let ITEM_PER_PAGE = 5;
 //GET /workTime
 exports.getWorkTimeAndSalary = (req, res, next) => {
   try {
-    let pageSize = ITEM_PER_PAGE || 5;
+    let pageSize = ITEM_PER_PAGE;
     let page = +req.query.page || 1;
     let totalItems = +req.staff.workTime.length;
     let totalPage = Math.ceil(totalItems / pageSize);
@@ -22,7 +22,10 @@ exports.getWorkTimeAndSalary = (req, res, next) => {
       pageTitle: "Thông tin giờ làm và lương",
       moment,
       workTimes: itemsOfPage || req.staff.workTime,
-      totalTime: Methods.getTotalTime(req.staff.workTime),
+      totalTime: Methods.getTotalTimeLastDate(
+        req.staff.workTime,
+        req.staff.offTime
+      ),
       offTimes: req.staff.offTime,
       isWork: false,
       salary,
@@ -34,6 +37,7 @@ exports.getWorkTimeAndSalary = (req, res, next) => {
       lastPage: totalPage
     });
   } catch (err) {
+    console.error(err);
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);
@@ -58,7 +62,10 @@ exports.postSalaryToMonth = (req, res, next) => {
       pageTitle: "Thông tin giờ làm và lương",
       moment,
       workTimes: itemsOfPage || req.staff.workTime,
-      totalTime: Methods.getTotalTime(req.staff.workTime),
+      totalTime: Methods.getTotalTimeLastDate(
+        req.staff.workTime,
+        req.staff.offTime
+      ),
       offTimes: req.staff.offTime,
       isWork: false,
       salary,
@@ -94,7 +101,10 @@ exports.getPagination = (req, res, next) => {
       pageTitle: "Thông tin giờ làm và lương",
       moment,
       workTimes: itemsOfPage || req.staff.workTime,
-      totalTime: Methods.getTotalTime(req.staff.workTime),
+      totalTime: Methods.getTotalTimeLastDate(
+        req.staff.workTime,
+        req.staff.offTime
+      ),
       offTimes: req.staff.offTime,
       isWork: false,
       salary,
@@ -131,7 +141,10 @@ exports.postPagination = (req, res, next) => {
       pageTitle: "Thông tin giờ làm và lương",
       moment,
       workTimes: itemsOfPage || req.staff.workTime,
-      totalTime: Methods.getTotalTime(req.staff.workTime),
+      totalTime: Methods.getTotalTimeLastDate(
+        req.staff.workTime,
+        req.staff.offTime
+      ),
       offTimes: req.staff.offTime,
       isWork: false,
       salary,

@@ -1,6 +1,16 @@
-const staff = require("../models/staff");
+const moment = require("moment");
 
 class Methods {
+  //get total time work
+  getTotalWorkTime = (startTime, endTime) => {
+    let end = moment(endTime);
+    let start = moment(startTime);
+    let duration = moment.duration(end.diff(start));
+    let times = duration.asHours();
+    return times;
+  };
+
+  //get salary
   getSalary = (staff, month) => {
     const workTimes = staff.workTime;
     const offTimes = staff.offTime;
@@ -24,19 +34,23 @@ class Methods {
     //
     //get over Time && short Time
     workTimes.forEach((work) => {
+      let leaveTimeOfDate = 0;
+      let WorkTimeOfDate = 0;
+
       if (work.endTime.getMonth() + 1 === Number(month)) {
-        overTime += work.overTime;
-        if (work.total < 8) {
-          listDayLeave.forEach((date) => {
-            if (
-              Number(date.date.slice(0, 2) === work.endTime.getDate()) &&
-              date.hours + work.total <= 8
-            ) {
-              shortTime += 8 - (date.hours + work.total);
-            }
-          });
-          shortTime += 8 - work.total;
-        }
+        listDayLeave.forEach((date) => {
+          if (Number(date.date.slice(0, 2)) === work.endTime.getDate()) {
+            leaveTimeOfDate += date.hours;
+          }
+        });
+        let total = this.getTotalWorkTime(work.startTime, work.endTime);
+        WorkTimeOfDate += total;
+
+        overTime += WorkTimeOfDate <= 8 ? 0 : WorkTimeOfDate - 8;
+        shortTime +=
+          WorkTimeOfDate + leaveTimeOfDate >= 8
+            ? 0
+            : 8 - (WorkTimeOfDate + leaveTimeOfDate);
       }
     });
 
@@ -50,64 +64,71 @@ class Methods {
     return salary;
   };
 
-  getTotalTimeLastDate = (staff) => {
-    const today = new Date();
-    let totalTime = 0;
-    let totalTimeLeave = 0;
+  getTotalTimeLastDate = (workTimes, offTimes) => {
     const listDayLeave = [];
-    const workTimesToday = [];
+    let total = 0;
 
-    //get leave date of today
-    if (staff.offTime.length > 0) {
-      staff.offTime.forEach((off) => {
+    //get list leave date
+    if (offTimes.length > 0) {
+      offTimes.forEach((off) => {
         const listOffTime = off.offTime.split(",");
         let timeLeave = off.offHours;
         listOffTime.forEach((date) => {
-          if (
-            Number(date.slice(3, 5)) === today.getMonth() &&
-            Number(date.slice(0, 2)) === today.getDate()
-          ) {
-            listDayLeave.push({ date: date, hours: timeLeave });
-          }
+          listDayLeave.push({ date: date, hours: timeLeave });
         });
-      });
-      listDayLeave.forEach((date) => {
-        return (totalTimeLeave += date.hours);
       });
     }
-    //
-    //get list work time today
-    if (staff.workTime.length > 0) {
-      const workTimesToday = staff.workTime.filter(
-        (t) =>
-          t.startTime.getDate() === today.getDate() &&
-          t.startTime.getMonth() === today.getMonth()
-      );
-      if (workTimesToday.length > 0) {
-        workTimesToday.forEach((t) => {
-          totalTime += t.total;
-        });
-        //condition find workTime last day
+    //loop for workTimes have leave date, without last element
+    if (workTimes.length > 0) {
+      for (let i = 0; i < workTimes.length - 1; i++) {
+        total += this.getTotalWorkTime(
+          workTimes[i].startTime,
+          workTimes[i].endTime
+        );
         if (
-          workTimesToday[workTimesToday.length - 1].endTime.getHours() === 24
+          workTimes[i].endTime.getDate() !== workTimes[i + 1].endTime.getDate()
         ) {
-          totalTime += totalTimeLeave;
+          let dateOfLastWorkTime = workTimes[i].endTime.getDate();
+          let monthOfLastWorkTime = workTimes[i].endTime.getMonth() + 1;
+
+          listDayLeave.forEach((date) => {
+            if (
+              Number(date.date.slice(0, 2)) == dateOfLastWorkTime &&
+              Number(date.date.slice(3, 5)) == monthOfLastWorkTime
+            ) {
+              total += date.hours;
+            }
+          });
         }
       }
 
-      return { totalTime, workTimesToday };
+      //totalTime of last element
+      let time = this.getTotalWorkTime(
+        workTimes[workTimes.length - 1].startTime,
+        workTimes[workTimes.length - 1].endTime
+      );
+      total += time;
     }
-    return { totalTime, workTimesToday };
+    return total;
   };
 
-  getTotalTime = (workTime) => {
+  getTotalTimesOfDay = (workTimes) => {
     let totalTime = 0;
-    if (workTime.length) {
-      workTime.forEach((t) => {
-        totalTime += t.total;
-      });
-    }
-    return totalTime;
+    let listWorkTime = [];
+    const today = new Date();
+
+    workTimes.forEach((workTime) => {
+      if (
+        workTime.endTime.getDate() === today.getDate() &&
+        workTime.endTime.getMonth() === today.getMonth()
+      ) {
+        listWorkTime.push(workTime);
+        let total = this.getTotalWorkTime(workTime.startTime, workTime.endTime);
+        totalTime += total;
+      }
+    });
+
+    return { listWorkTime, totalTime };
   };
 }
 

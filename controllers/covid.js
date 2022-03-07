@@ -15,12 +15,6 @@ exports.getCovid = (req, res, next) => {
         staffs,
         moment
       });
-
-      // staffs.forEach((staff) => {
-      //   if (staff.covidInfo.temperatureInfo.length > 0) {
-      //     console.log(staff.covidInfo.temperatureInfo[0].temperature);
-      //   }
-      // });
     })
     .catch((err) => console.log(err));
 };
@@ -106,8 +100,28 @@ exports.getPDF = (req, res, next) => {
       pdfDoc.text(
         "Nhiệt độ : " + staff.covidInfo.temperatureInfo[0].temperature
       );
-      pdfDoc.text("Vaccine  1 :" + staff.covidInfo.vaccineInfo[0].name);
-      pdfDoc.text("Vaccine  2 :" + staff.covidInfo.vaccineInfo[1].name);
+      pdfDoc.text(
+        "Vaccine  1 : " +
+          staff.covidInfo.vaccineInfo[0].name +
+          " .Ngày tiêm : " +
+          moment(staff.covidInfo.vaccineInfo[0].date).format("DD/MM/YYYY")
+      );
+      pdfDoc.text(
+        "Vaccine  2 : " +
+          staff.covidInfo.vaccineInfo[1].name +
+          " .Ngày tiêm : " +
+          moment(staff.covidInfo.vaccineInfo[1].date).format("DD/MM/YYYY")
+      );
+      pdfDoc.text(
+        "Ngày nhiểm bệnh : " +
+          moment(staff.covidInfo.infectedInfo[0].infectedDate).format(
+            "DD/MM/YYYY"
+          )
+      );
+      pdfDoc.text(
+        "Ngày khỏi bệnh :" +
+          moment(staff.covidInfo.infectedInfo[0].cureDate).format("DD/MM/YYYY")
+      );
       pdfDoc.end();
     })
     .catch((err) => {

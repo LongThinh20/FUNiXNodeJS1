@@ -33,7 +33,10 @@ exports.postStaffDetail = (req, res, next) => {
           pageTitle: "Quản lý nhân viên",
           path: "/manager",
           isWork: false,
-          totalTime: Methods.getTotalTime(staff.workTime),
+          totalTime: Methods.getTotalTimeLastDate(
+            staff.workTime,
+            staff.offTime
+          ),
           staff,
           moment,
           errorMessage: null
@@ -41,6 +44,7 @@ exports.postStaffDetail = (req, res, next) => {
       })
       .catch((err) => console.log(err));
   } catch (err) {
+    console.error(err);
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);
@@ -61,13 +65,16 @@ exports.deleteWorkTime = (req, res, next) => {
 
         return staff.save();
       })
-      .then((result) => {
+      .then((staff) => {
         return res.render("manager/staffManager", {
           pageTitle: "Quản lý nhân viên",
           path: "/manager",
           isWork: false,
-          totalTime: Methods.getTotalTime(result.workTime),
-          staff: result,
+          totalTime: Methods.getTotalTimeLastDate(
+            staff.workTime,
+            staff.offTime
+          ),
+          staff,
           moment,
           errorMessage: null
         });
@@ -89,7 +96,6 @@ exports.postIsConfirmed = (req, res, next) => {
           confirmed: true,
           month: req.body.month
         };
-
         if (staff.isConfirm.length > 0) {
           staff.isConfirm.forEach((isConfirm) => {
             if (isConfirm.month.toString() === item.month) {
@@ -97,7 +103,10 @@ exports.postIsConfirmed = (req, res, next) => {
                 pageTitle: "Quản lý nhân viên",
                 path: "/manager",
                 isWork: false,
-                totalTime: Methods.getTotalTime(staff.workTime),
+                totalTime: Methods.getTotalTimeLastDate(
+                  staff.workTime,
+                  staff.offTime
+                ),
                 staff,
                 moment,
                 errorMessage: "Tháng đã xác nhận , hãy chọn tháng khác !!"

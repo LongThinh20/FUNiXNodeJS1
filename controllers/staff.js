@@ -16,6 +16,7 @@ exports.getStaffInfo = (req, res, next) => {
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
+    console.error(err);
     return next(error);
   }
 };

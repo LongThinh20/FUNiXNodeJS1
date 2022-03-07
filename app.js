@@ -57,10 +57,8 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
 
 //set stactic
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static("images"));
 app.use(
@@ -106,7 +104,8 @@ app.use(managerRoutes);
 app.use(staffRoutes);
 app.use(errorController.get404);
 app.use((error, req, res, next) => {
-  res.status(500).render("500", {
+  console.error(error);
+  return res.status(500).render("500", {
     pageTitle: "Lỗi !!",
     path: "/500",
     isWork: false
@@ -143,7 +142,9 @@ mongoose
         staff.save();
       }
     });
-    app.listen(PORT);
+    app.listen(PORT || 8080, "0.0.0.0", () => {
+      console.log("Server is running.");
+    });
   })
   .catch((err) => {
     console.log(err);
