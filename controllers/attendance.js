@@ -30,7 +30,7 @@ exports.postStartWorkTime = (req, res, next) => {
       res.redirect("/attendance");
       console.log("START WORK TIME!!");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 //GET  /attendance
@@ -55,5 +55,5 @@ exports.postEndWorkTime = (req, res, next) => {
       console.log("POST END WORKTIME");
       res.redirect("/registerWork");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };

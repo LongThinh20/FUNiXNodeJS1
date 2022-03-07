@@ -80,9 +80,9 @@ const staffSchema = new Schema({
 });
 
 staffSchema.methods.addOffTime = function (offTimes) {
-  const { offTime, reason, offHours } = offTimes;
-  // let timesDatePicker = offTime.split(",").length - 1 + 1;
+  const { offHours } = offTimes;
   const updateOffTime = [...this.offTime];
+
   //update annual Leave
   let dayLeave = offHours / 8;
   this.annualLeave = this.annualLeave - dayLeave;
@@ -93,11 +93,8 @@ staffSchema.methods.addOffTime = function (offTimes) {
 
 staffSchema.methods.addWorkTime = function (startWorkTime) {
   const updateWorkTime = [...this.workTime];
-
   updateWorkTime.push(startWorkTime);
-
   this.workTime = updateWorkTime;
-
   return this.save();
 };
 
@@ -105,9 +102,7 @@ staffSchema.methods.updateWorkTime = function (endTime) {
   const lastWorkTime = this.workTime[this.workTime.length - 1];
   if (lastWorkTime.endTime === null) {
     lastWorkTime.endTime = endTime;
-
     this.workTime[this.workTime.length - 1] = lastWorkTime;
-
     return this.save();
   }
   return this.save();

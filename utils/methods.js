@@ -45,29 +45,12 @@ class Methods {
         });
         let total = this.getTotalWorkTime(work.startTime, work.endTime);
         WorkTimeOfDate += total;
-        console.log(WorkTimeOfDate);
 
         overTime += WorkTimeOfDate <= 8 ? 0 : WorkTimeOfDate - 8;
         shortTime +=
           WorkTimeOfDate + leaveTimeOfDate >= 8
             ? 0
             : 8 - (WorkTimeOfDate + leaveTimeOfDate);
-
-        // let total = this.getTotalWorkTime(work.startTime, work.endTime);
-        // if (total > 8) {
-        //   overTime += total - 8;
-        // }
-        // if (total < 8) {
-        //   listDayLeave.forEach((date) => {
-        //     if (
-        //       Number(date.date.slice(0, 2)) === work.endTime.getDate() &&
-        //       date.hours + total <= 8
-        //     ) {
-        //       shortTime += 8 - (date.hours + total);
-        //     }
-        //   });
-        //   shortTime += 8 - total;
-        // }
       }
     });
 
@@ -94,6 +77,7 @@ class Methods {
         });
       });
     }
+
     //loop for workTimes have leave date, without last element
     for (let i = 0; i < workTimes.length - 1; i++) {
       total += this.getTotalWorkTime(

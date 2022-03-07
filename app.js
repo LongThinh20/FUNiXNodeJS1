@@ -17,6 +17,7 @@ const PORT = 3001;
 
 // Parse body
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
@@ -44,7 +45,7 @@ mongoose
           salaryScale: 1.5,
           startDate: new Date(2022, 02, 02),
           department: "IT",
-          annualLeave: 8,
+          annualLeave: 12,
           workTime: [],
           offTime: [],
           covidInfo: {

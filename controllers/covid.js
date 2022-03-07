@@ -27,7 +27,7 @@ exports.postVaccineInfo = (req, res, next) => {
         isWork: false
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 //POST /infected
@@ -46,7 +46,7 @@ exports.postInfectedInfo = (req, res, next) => {
         isWork: false
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 //POST /temperature
@@ -65,5 +65,5 @@ exports.postTemperatureInfo = (req, res, next) => {
         isWork: false
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };

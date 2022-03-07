@@ -12,5 +12,5 @@ exports.postTimeOff = (req, res, next) => {
       console.log("POST OFF TIME");
       res.redirect("/registerWork");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };

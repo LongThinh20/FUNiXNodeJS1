@@ -18,5 +18,5 @@ exports.postUpdateAvatar = (req, res, next) => {
   req.staff
     .save()
     .then(() => res.redirect("/registerWork"))
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };
