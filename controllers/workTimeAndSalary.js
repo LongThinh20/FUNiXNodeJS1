@@ -29,7 +29,10 @@ exports.postSalaryToMonth = (req, res, next) => {
     pageTitle: "THÔNG TIN GIỜ LÀM / LƯƠNG",
     moment,
     workTimes: req.staff.workTime,
-    totalTime: Methods.getTotalTimes(req.staff.workTime),
+    totalTime: Methods.getTotalTimeLastDate(
+      req.staff.workTime,
+      req.staff.offTime
+    ),
     offTimes: req.staff.offTime,
     isWork: false,
     salary

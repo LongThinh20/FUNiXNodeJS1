@@ -8,8 +8,8 @@ exports.getWorkTimesList = (req, res, next) => {
     pageTitle: "ĐĂNG KÍ LÀM VIỆC",
     staffInfo: req.staff,
     isWork: false,
-    workTimes: req.staff.workTime,
-    totalTime: Methods.getTotalTimes(req.staff.workTime),
+    workTimes: Methods.getTotalTimesOfDay(req.staff.workTime).listWorkTime,
+    totalTime: Methods.getTotalTimesOfDay(req.staff.workTime).totalTime,
     moment
   });
 };
