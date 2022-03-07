@@ -142,7 +142,7 @@ mongoose
         staff.save();
       }
     });
-    app.listen(PORT || 8080, "0.0.0.0", () => {
+    app.listen(process.env.PORT || 8080, "0.0.0.0", () => {
       console.log("Server is running.");
     });
   })

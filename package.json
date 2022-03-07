@@ -24,6 +24,13 @@
     "start": "node app.js",
     "start-server": "node app.js"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "14.x"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
