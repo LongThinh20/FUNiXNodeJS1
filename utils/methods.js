@@ -106,6 +106,7 @@ class Methods {
       workTimes[workTimes.length - 1].startTime,
       workTimes[workTimes.length - 1].endTime
     );
+
     return total + time;
   };
 
