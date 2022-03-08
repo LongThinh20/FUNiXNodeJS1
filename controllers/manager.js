@@ -16,7 +16,7 @@ exports.getIndex = (req, res, next) => {
           staffs
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
@@ -42,7 +42,7 @@ exports.postStaffDetail = (req, res, next) => {
           errorMessage: null
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } catch (err) {
     console.error(err);
     const error = new Error(err);
@@ -79,7 +79,7 @@ exports.deleteWorkTime = (req, res, next) => {
           errorMessage: null
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
@@ -123,7 +123,7 @@ exports.postIsConfirmed = (req, res, next) => {
         return res.redirect("/manager");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   } catch (err) {
     const error = new Error(err);

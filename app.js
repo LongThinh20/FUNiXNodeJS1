@@ -89,7 +89,7 @@ app.use((req, res, next) => {
       res.locals.role = staff.role;
       next();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 });
 
 app.use((req, res, next) => {
@@ -103,7 +103,6 @@ app.use(managerRoutes);
 app.use(staffRoutes);
 app.use(errorController.get404);
 app.use((error, req, res, next) => {
-  console.error(error);
   return res.status(500).render("500", {
     pageTitle: "Lỗi !!",
     path: "/500",

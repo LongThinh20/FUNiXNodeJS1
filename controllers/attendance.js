@@ -48,7 +48,7 @@ exports.postStartWorkTime = (req, res, next) => {
         res.redirect("/attendance");
         console.log("START WORK TIME!!");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;

@@ -352,8 +352,7 @@ footer {
 }
 
 /**/
-
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .main-header__nav {
     display: flex;
   }
@@ -362,11 +361,28 @@ footer {
     display: none;
   }
 }
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .logout {
+    border: none;
+    background-color: white;
+    color: black;
+    font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+  }
+  .logout:hover {
+    background: #00695c;
+    color: white;
+  }
+  #side-menu-toggle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .main-header {
+    height: 4rem;
+  }
+}
 
 @media screen and (max-width: 767px) {
-  .covidInfo {
-    width: 100%;
-  }
   .staffInfo {
     width: 110%;
     padding: 10%;
@@ -377,7 +393,42 @@ footer {
     width: 100%;
   }
   .login {
-    width: 100%;
     margin: auto;
+  }
+  .login .login-detail {
+    width: 80%;
+  }
+  .logout {
+    border: none;
+    background-color: white;
+    color: black;
+    font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+  }
+  .logout:hover {
+    background: #00695c;
+    color: white;
+  }
+  #side-menu-toggle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .main-header {
+    height: 4rem;
+  }
+
+  .offTime {
+    width: 100%;
+  }
+  .banner h4 {
+    font-size: 1.2rem;
+  }
+  .covidInfo {
+    width: 100%;
+  }
+  @media screen and (max-width: 567px) {
+    .staffInfo {
+      width: 100%;
+    }
   }
 }

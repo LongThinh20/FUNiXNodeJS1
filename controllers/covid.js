@@ -16,7 +16,7 @@ exports.getCovid = (req, res, next) => {
         moment
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 exports.postVaccineInfo = (req, res, next) => {
@@ -39,7 +39,7 @@ exports.postVaccineInfo = (req, res, next) => {
         role: req.staff.role
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 };
 
 exports.postInfectedInfo = (req, res, next) => {
@@ -81,8 +81,6 @@ exports.postTemperatureInfo = (req, res, next) => {
 };
 
 exports.getPDF = (req, res, next) => {
-  console.log(req.params.staffId);
-
   Staff.findById(req.params.staffId)
     .then((staff) => {
       const pdfDoc = new PDFDocument();
@@ -125,6 +123,6 @@ exports.getPDF = (req, res, next) => {
       pdfDoc.end();
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };

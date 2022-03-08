@@ -12,7 +12,7 @@ exports.postTimeOff = (req, res, next) => {
         console.log("POST OFF TIME");
         res.redirect("/registerWork");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
