@@ -31,7 +31,7 @@ class Methods {
         }
       });
     });
-    //
+
     //get over Time && short Time
     workTimes.forEach((work) => {
       let leaveTimeOfDate = 0;

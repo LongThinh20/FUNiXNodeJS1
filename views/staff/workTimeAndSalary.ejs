@@ -33,7 +33,11 @@
                                         : ' Khách Hàng' %>
                                 </td>
                                 <td>
-                                    <%= time.overTime %>
+                                    <% let end=moment(time.endTime) %>
+                                        <% let start=moment(time.startTime) %>
+                                            <% let duration=moment.duration(end.diff(start))%>
+                                                <%let times=duration.asHours() %>
+                                                    <%= times<=8? 0 :( times -8).toFixed(2) %>
                                 </td>
                             </tr>
                             <% } %>
