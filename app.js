@@ -17,7 +17,7 @@ const managerRoutes = require("./routes/manager");
 const MONGODB_URI =
   "mongodb+srv://nodejs:nodejs12345@cluster0.wyrbn.mongodb.net/Staffs";
 
-const PORT = 3001;
+const PORT = 3000;
 
 const app = express();
 
@@ -95,7 +95,6 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
-
   next();
 });
 
@@ -142,10 +141,10 @@ mongoose
         staff.save();
       }
     });
-    app.listen(process.env.PORT || 8080, "0.0.0.0", () => {
+    app.listen(process.env.PORT || 3001, "0.0.0.0", () => {
       console.log("Server is running.");
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });
