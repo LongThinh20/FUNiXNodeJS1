@@ -35,6 +35,20 @@ exports.postStaffDetail = (req, res, next) => {
           (wt) => wt.endTime.getMonth() + 1 === Number(req.body.month)
         );
 
+        const getLeaveTimeOfMonth = (month, offTimes) => {
+          const listDayLeave = [];
+          offTimes.forEach((off) => {
+            const listOffTimes = off.offTime.split(",");
+            const timeLeave = off.offHours;
+            listOffTimes.forEach((date) => {
+              if (Number(date.slice(3, 5)) === Number(month)) {
+                listDayLeave.push({ date: date, hours: timeLeave });
+              }
+            });
+          });
+          return listDayLeave;
+        };
+
         staff.isConfirm.forEach((item) => {
           if (item.month.toString() === req.body.month) {
             isConfirm = true;
@@ -46,6 +60,7 @@ exports.postStaffDetail = (req, res, next) => {
           isWork: false,
           totalTime: Methods.getTotalTimeLastDate(workTime, staff.offTime),
           workTime,
+          offTimes: getLeaveTimeOfMonth(req.body.month, staff.offTime),
           staff,
           moment,
           isConfirm,
@@ -71,9 +86,7 @@ exports.deleteWorkTime = (req, res, next) => {
         const newUpdateArr = updateWorkTime.filter((work) => {
           return work._id.toString() !== req.body.workTimeId.trim().toString();
         });
-
         staff.workTime = newUpdateArr;
-
         return staff.save();
       })
       .then((staff) => {

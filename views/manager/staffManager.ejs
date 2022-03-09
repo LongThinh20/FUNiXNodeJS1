@@ -59,19 +59,47 @@
                                     <%= totalTime %> (giờ)
                                 </span>
                             </p>
-                            <h4 class="text-title mt-4"> Xác nhận dữ liệu giờ làm đã đúng</h4>
 
-                            <% if (!isConfirm) { %>
-                                <form action="/manager/isConfirm" method="post">
-                                    <button class='btn btn-outline-warning mt-2' type="submit">XÁC
-                                        NHẬN</button>
-                                    <input type="hidden" name="staffId" value="<%= staff._id%> ">
-                                    <input type="hidden" name="month" value="<%= month %> ">
-                                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                                </form>
+                            <h4 class="text-title">Danh sách đăng ký nghỉ phép </h4>
+                            <% if(offTimes.length> 0){ %>
+                                <table class="table styleBox">
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày</th>
+                                            <th>Số giờ đăng kí nghỉ</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let time of offTimes) {%>
+                                            <tr>
+                                                <td>
+                                                    <%= (time.date) %>
+                                                </td>
+                                                <td>
+                                                    <%= time.hours %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
                                 <% }else{ %>
-                                    <h3 class="text-danger ml-4 mt-4">....Đã xác nhận thông tin giờ làm. </h3>
+                                    <h5 class="pl-2 font-italic text-warning">Chưa có dữ liệu ...</h5>
                                     <% } %>
+                                        <h4 class="text-title mt-4"> Xác nhận dữ liệu giờ làm đã đúng</h4>
+
+                                        <% if (!isConfirm) { %>
+                                            <form action="/manager/isConfirm" method="post">
+                                                <button class='btn btn-outline-warning mt-2' type="submit">XÁC
+                                                    NHẬN</button>
+                                                <input type="hidden" name="staffId" value="<%= staff._id%> ">
+                                                <input type="hidden" name="month" value="<%= month %> ">
+                                                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                                            </form>
+                                            <% }else{ %>
+                                                <h3 class="text-danger ml-4 mt-4">....Đã xác nhận thông tin giờ làm.
+                                                </h3>
+                                                <% } %>
 
 
 

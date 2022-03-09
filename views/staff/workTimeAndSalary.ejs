@@ -4,9 +4,15 @@
             <h3>THÔNG TIN GIỜ LÀM && LƯƠNG </h3>
             <br>
             <% if(role==='staff' ) {%>
-                <h5>ID : <%= manager[0]._id.toString() %>
+                <h5><span class="font-weight-bold">ID :</span>
+                    <span class="font-italic text-warning">
+                        <%= manager[0]._id.toString() %>
+                    </span>
                 </h5>
-                <h5>Tên quản lý :<%= manager[0].name %>
+                <h5> <span class="font-weight-bold">Tên quản lý :</span>
+                    <span class="font-italic text-warning">
+                        <%= manager[0].name %>
+                    </span>
                 </h5>
                 <% } %>
                     <br>
