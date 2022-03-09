@@ -21,7 +21,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "start-server": "node app.js"
   },
   "keywords": [
@@ -32,5 +32,5 @@
     "node": "14.x"
   },
   "author": "",
-  "license": "MIT"
+  "license": "ISC"
 }

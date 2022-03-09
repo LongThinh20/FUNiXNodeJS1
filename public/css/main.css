@@ -350,6 +350,9 @@ footer {
   background: #00695c;
   color: white;
 }
+.manager {
+  width: 40%;
+}
 
 /**/
 @media (min-width: 992px) {
@@ -379,6 +382,9 @@ footer {
   }
   .main-header {
     height: 4rem;
+  }
+  .manager {
+    width: 100%;
   }
 }
 
@@ -428,6 +434,9 @@ footer {
   }
   @media screen and (max-width: 567px) {
     .staffInfo {
+      width: 100%;
+    }
+    .manager {
       width: 100%;
     }
   }

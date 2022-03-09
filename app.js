@@ -103,6 +103,7 @@ app.use(managerRoutes);
 app.use(staffRoutes);
 app.use(errorController.get404);
 app.use((error, req, res, next) => {
+  console.error(error);
   return res.status(500).render("500", {
     pageTitle: "Lỗi !!",
     path: "/500",
@@ -143,6 +144,7 @@ mongoose
     app.listen(process.env.PORT || 3001, "0.0.0.0", () => {
       console.log("Server is running.");
     });
+    // app.listen(PORT);
   })
   .catch((err) => {
     console.error(err);

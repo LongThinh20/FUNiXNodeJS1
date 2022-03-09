@@ -13,7 +13,8 @@ exports.getIndex = (req, res, next) => {
           pageTitle: "Quản lý nhân viên",
           path: "/manager",
           isWork: false,
-          staffs
+          staffs,
+          errorMessage: null
         });
       })
       .catch((err) => console.error(err));
@@ -27,19 +28,29 @@ exports.getIndex = (req, res, next) => {
 //POST /manager/staffDetail
 exports.postStaffDetail = (req, res, next) => {
   try {
+    let isConfirm = false;
     Staff.findById(req.body.staffId.trim())
       .then((staff) => {
+        const workTime = staff.workTime.filter(
+          (wt) => wt.endTime.getMonth() + 1 === Number(req.body.month)
+        );
+
+        staff.isConfirm.forEach((item) => {
+          if (item.month.toString() === req.body.month) {
+            isConfirm = true;
+          }
+        });
         return res.render("manager/staffManager", {
           pageTitle: "Quản lý nhân viên",
           path: "/manager",
           isWork: false,
-          totalTime: Methods.getTotalTimeLastDate(
-            staff.workTime,
-            staff.offTime
-          ),
+          totalTime: Methods.getTotalTimeLastDate(workTime, staff.offTime),
+          workTime,
           staff,
           moment,
-          errorMessage: null
+          isConfirm,
+          month: req.body.month,
+          errorMessage: "Tháng đã được xác nhận. Hãy chọn tháng khác !!"
         });
       })
       .catch((err) => console.error(err));
@@ -96,26 +107,7 @@ exports.postIsConfirmed = (req, res, next) => {
           confirmed: true,
           month: req.body.month
         };
-        if (staff.isConfirm.length > 0) {
-          staff.isConfirm.forEach((isConfirm) => {
-            if (isConfirm.month.toString() === item.month) {
-              return res.render("manager/staffManager", {
-                pageTitle: "Quản lý nhân viên",
-                path: "/manager",
-                isWork: false,
-                totalTime: Methods.getTotalTimeLastDate(
-                  staff.workTime,
-                  staff.offTime
-                ),
-                staff,
-                moment,
-                errorMessage: "Tháng đã xác nhận , hãy chọn tháng khác !!"
-              });
-            }
-          });
-        }
         staff.isConfirm.push(item);
-
         staff.save();
       })
       .then((result) => {

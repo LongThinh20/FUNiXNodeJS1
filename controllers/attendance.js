@@ -4,7 +4,7 @@ const Methods = require("../utils/methods");
 //GET /registerWork
 exports.getWorkTimesList = (req, res, next) => {
   try {
-    const currentMonth = new Date().getMonth();
+    const currentMonth = new Date().getMonth() + 1;
     let isConfirmed = false;
     if (req.staff.isConfirm.length > 0) {
       req.staff.isConfirm.forEach((staff) => {
@@ -13,6 +13,7 @@ exports.getWorkTimesList = (req, res, next) => {
         }
       });
     }
+
     res.render("staff/workPage", {
       path: "/adttendance",
       pageTitle: "ĐĂNG KÍ LÀM VIỆC",

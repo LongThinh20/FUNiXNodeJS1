@@ -2,11 +2,11 @@
     <%- include('../includes/navigation.ejs') %>
         <main>
             <div class="container">
-                <h5>Tên nhân viên : <%= staff.name%>
+                <h5 class="font-italic">Tên nhân viên : <%= staff.name%>
                 </h5>
-                <h4 class="text-title">Danh sách giờ làm</h4>
 
-                <% if(staff.workTime.length> 0 ){ %>
+                <h4 class="text-title">Danh sách giờ làm</h4>
+                <% if(workTime.length> 0 ){ %>
                     <table class="table styleBox">
                         <thead>
                             <tr>
@@ -16,11 +16,10 @@
                                 <th>Nơi làm việc</th>
                                 <th>Số giờ làm thêm </th>
                                 <th> </th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(let time of staff.workTime) {%>
+                            <% for(let time of workTime) {%>
                                 <tr>
                                     <td>
                                         <%= moment(time.endTime).format('DD/MM/YYYY') %>
@@ -43,7 +42,8 @@
                                             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                                             <input type="hidden" name="workTimeId" value="<%= time._id%> ">
                                             <input type="hidden" name="staffId" value="<%= staff._id%>">
-                                            <button class="btn btn-outline-danger">XÓA</button>
+                                            <button class="btn btn-outline-danger " <%=isConfirm ? 'disabled' :'' %>
+                                                >XÓA</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -53,40 +53,28 @@
                     <% } else {%>
                         <h5 class="pl-2 font-italic text-warning">Chưa có dữ liệu ...</h5>
                         <% } %>
-                            <p class="pl-5"><span class="font-italic text-secondary">Tổng giờ đã làm :</span>
+                            <p class="pl-5"><span class="font-italic text-secondary">Tổng giờ đã làm
+                                    :</span>
                                 <span class="font-weight-bold">
                                     <%= totalTime %> (giờ)
                                 </span>
                             </p>
-                            <form action="/manager/isConfirm" method="post">
-                                <% if(errorMessage){ %>
-                                    <div class="user-message user-message--error">
-                                        <%= errorMessage %>
-                                    </div>
+                            <h4 class="text-title mt-4"> Xác nhận dữ liệu giờ làm đã đúng</h4>
+
+                            <% if (!isConfirm) { %>
+                                <form action="/manager/isConfirm" method="post">
+                                    <button class='btn btn-outline-warning mt-2' type="submit">XÁC
+                                        NHẬN</button>
+                                    <input type="hidden" name="staffId" value="<%= staff._id%> ">
+                                    <input type="hidden" name="month" value="<%= month %> ">
+                                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                                </form>
+                                <% }else{ %>
+                                    <h3 class="text-danger ml-4 mt-4">....Đã xác nhận thông tin giờ làm. </h3>
                                     <% } %>
-                                        <h4 class="text-title mt-4">Xác nhận tháng đã làm</h4>
-                                        <button class='btn btn-outline-info mt-2' type="submit">XÁC NHẬN</button>
-                                        <input type="hidden" name="staffId" value="<%= staff._id%> ">
-                                        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                                        <div class="form-group">
-                                            <label for="month" class="text-secondary font-italic ml-2">Chọn
-                                                tháng</label>
-                                            <select class="form-control" name="month" id="month">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                            </select>
-                                        </div>
-                            </form>
+
+
+
             </div>
 
 
