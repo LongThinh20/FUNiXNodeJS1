@@ -96,29 +96,46 @@ exports.getPDF = (req, res, next) => {
 
       pdfDoc.text("Tên nhân viên : " + staff.name);
       pdfDoc.text(
-        "Nhiệt độ : " + staff.covidInfo.temperatureInfo[0].temperature
+        "Nhiệt độ : " +
+          (staff.covidInfo.temperatureInfo.length > 0
+            ? staff.covidInfo.temperatureInfo[0].temperature
+            : "----")
       );
       pdfDoc.text(
         "Vaccine  1 : " +
-          staff.covidInfo.vaccineInfo[0].name +
+          (staff.covidInfo.vaccineInfo.length > 0
+            ? staff.covidInfo.vaccineInfo[0].name
+            : "----") +
           " .Ngày tiêm : " +
-          moment(staff.covidInfo.vaccineInfo[0].date).format("DD/MM/YYYY")
+          (staff.covidInfo.vaccineInfo.length > 0
+            ? moment(staff.covidInfo.vaccineInfo[0].date).format("DD/MM/YYYY")
+            : "----")
       );
       pdfDoc.text(
         "Vaccine  2 : " +
-          staff.covidInfo.vaccineInfo[1].name +
+          (staff.covidInfo.vaccineInfo.length > 0
+            ? staff.covidInfo.vaccineInfo[1].name
+            : "----") +
           " .Ngày tiêm : " +
-          moment(staff.covidInfo.vaccineInfo[1].date).format("DD/MM/YYYY")
+          (staff.covidInfo.vaccineInfo.length > 0
+            ? moment(staff.covidInfo.vaccineInfo[1].date).format("DD/MM/YYYY")
+            : "----")
       );
       pdfDoc.text(
         "Ngày nhiểm bệnh : " +
-          moment(staff.covidInfo.infectedInfo[0].infectedDate).format(
-            "DD/MM/YYYY"
-          )
+          (staff.covidInfo.infectedInfo.length > 0
+            ? moment(staff.covidInfo.infectedInfo[0].infectedDate).format(
+                "DD/MM/YYYY"
+              )
+            : "----")
       );
       pdfDoc.text(
         "Ngày khỏi bệnh :" +
-          moment(staff.covidInfo.infectedInfo[0].cureDate).format("DD/MM/YYYY")
+          (staff.covidInfo.infectedInfo.length > 0
+            ? moment(staff.covidInfo.infectedInfo[0].cureDate).format(
+                "DD/MM/YYYY"
+              )
+            : "----")
       );
       pdfDoc.end();
     })
