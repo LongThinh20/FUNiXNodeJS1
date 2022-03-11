@@ -77,9 +77,9 @@ app.use(csrfProtection);
 
 app.use((req, res, next) => {
   if (!req.session.staff) {
+    res.locals.role = false;
     return next();
   }
-
   Staff.findById(req.session.staff._id)
     .then((staff) => {
       if (!staff) {
@@ -87,6 +87,11 @@ app.use((req, res, next) => {
       }
       req.staff = staff;
       res.locals.role = staff.role;
+      if (staff.role === "manager") {
+        res.locals.role = "manager";
+        return next();
+      }
+      res.locals.role = "staff";
       next();
     })
     .catch((err) => console.error(err));

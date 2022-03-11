@@ -386,6 +386,9 @@ footer {
   .manager {
     width: 100%;
   }
+  .login .login-detail {
+    width: 60%;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -402,7 +405,7 @@ footer {
     margin: auto;
   }
   .login .login-detail {
-    width: 80%;
+    width: 60%;
   }
   .logout {
     border: none;

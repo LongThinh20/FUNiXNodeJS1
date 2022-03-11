@@ -11,7 +11,7 @@ const HomeController = require("../controllers/home");
 
 const router = express.Router();
 
-router.get("/", isAuth, HomeController.getIndex);
+router.get("/", HomeController.getIndex);
 
 router.get("/registerWork", isAuth, attendanceController.getWorkTimesList);
 

@@ -17,7 +17,7 @@ exports.postLogin = (req, res, next) => {
   Staff.findOne({ user: user, password: password })
     .then((staff) => {
       if (!staff) {
-        return res.render("auth/login", {
+        return res.status(422).render("auth/login", {
           path: "/login",
           pageTitle: "Login",
           pageTitle: "Đăng nhập",
